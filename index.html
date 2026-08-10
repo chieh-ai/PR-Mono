@@ -361,6 +361,7 @@
     }
     
     .legend-dot.green { background: var(--color-green); box-shadow: 0 0 6px var(--color-green-glow); }
+    .legend-dot.orange { background: var(--color-orange); box-shadow: 0 0 6px rgba(249, 115, 22, 0.4); }
     .legend-dot.red { background: var(--color-red); box-shadow: 0 0 6px var(--color-red-glow); }
     
     .legend-bar-sample {
@@ -526,7 +527,7 @@
       display: block;
     }
 
-    /* Pure Dot Light Indicators (非 H~T 欄位) */
+    /* Light Indicators (非 H~T 欄位 / U欄位數字燈號) */
     .light-indicator {
       display: inline-flex;
       align-items: center;
@@ -561,6 +562,17 @@
     .light-green .dot {
       background-color: var(--color-green);
       box-shadow: 0 0 8px var(--color-green-glow);
+    }
+
+    /* Orange Light for Numeric Value < Current Week Target (e.g. 10 < 11) */
+    .light-orange {
+      background-color: var(--color-orange-light);
+      color: #c2410c;
+      border: 1px solid rgba(249, 115, 22, 0.4);
+    }
+    .light-orange .dot {
+      background-color: var(--color-orange);
+      box-shadow: 0 0 8px rgba(249, 115, 22, 0.4);
     }
 
     .light-red {
@@ -847,7 +859,11 @@
         
         <div class="legend-item" title="填寫狀態">
           <span class="legend-dot green"></span>
-          <span>🟢 已完成 / 已填寫</span>
+          <span>🟢 已完成 / 已達當週進度</span>
+        </div>
+        <div class="legend-item" title="填寫狀態">
+          <span class="legend-dot orange"></span>
+          <span>🟠 未達當週進度 (落差)</span>
         </div>
         <div class="legend-item" title="填寫狀態">
           <span class="legend-dot red"></span>
@@ -1039,14 +1055,24 @@
       });
     }
 
-    // Helper: Check non H~T Light Indicator status
-    function getLightHtml(val, isNumericCol = false) {
+    // Helper: Check non H~T Light Indicator status (with targetWk check for Column U)
+    function getLightHtml(val, isNumericCol = false, targetWk = 11) {
       if (val && val.trim() !== '') {
         if (isNumericCol) {
-          return `<span class="light-indicator light-green" title="已填寫: ${val}">
-                    <span class="dot"></span>
-                    <span class="label">${val}</span>
-                  </span>`;
+          const num = parseInt(val, 10);
+          if (!isNaN(num) && num < targetWk) {
+            // Orange light indicator when numeric value is less than current week target
+            return `<span class="light-indicator light-orange" title="未達當週目標 (${targetWk}週): ${val}">
+                      <span class="dot"></span>
+                      <span class="label">${val}</span>
+                    </span>`;
+          } else {
+            // Green light indicator when numeric value reaches or exceeds current week target
+            return `<span class="light-indicator light-green" title="已達當週目標: ${val}">
+                      <span class="dot"></span>
+                      <span class="label">${val}</span>
+                    </span>`;
+          }
         } else {
           return `<span class="light-indicator pure-dot light-green" title="已完成 / 已填寫">
                     <span class="dot"></span>
@@ -1155,6 +1181,9 @@
         tr.onclick = () => openModal(item);
 
         const wkCellsHtml = renderWkCells(item.wk);
+        
+        // Target Week is WK11 (11)
+        const targetWkNum = 11;
 
         tr.innerHTML = `
           <td class="col-dealer"><span class="text-ellipsis" title="${item.dealer}">${item.dealer}</span></td>
@@ -1165,7 +1194,7 @@
           <td>${getLightHtml(item.f, false)}</td>
           <td>${getLightHtml(item.g, false)}</td>
           ${wkCellsHtml}
-          <td>${getLightHtml(item.u, true)}</td>
+          <td>${getLightHtml(item.u, true, targetWkNum)}</td>
           <td>${getLightHtml(item.v, false)}</td>
         `;
 
@@ -1178,7 +1207,18 @@
       document.getElementById('modal-person-name').textContent = `${item.name} (${item.store})`;
       
       const yCount = item.wk.filter(w => ['Y','GY','V'].includes((w||'').trim())).length;
+      const targetWkNum = 11;
       
+      let uStatusHtml = '🔴 未填寫';
+      if (item.u) {
+        const uNum = parseInt(item.u, 10);
+        if (!isNaN(uNum) && uNum < targetWkNum) {
+          uStatusHtml = `🟠 ${item.u} (未達當週目標 ${targetWkNum} 週)`;
+        } else {
+          uStatusHtml = `🟢 ${item.u} (已達標)`;
+        }
+      }
+
       const content = document.getElementById('modal-content');
       content.innerHTML = `
         <div class="modal-item">
@@ -1207,7 +1247,7 @@
         </div>
         <div class="modal-item">
           <div class="modal-item-label">MyPal 自行回報 (08/09前)</div>
-          <div class="modal-item-value">${item.u ? '🟢 ' + item.u : '🔴 未填寫'}</div>
+          <div class="modal-item-value">${uStatusHtml}</div>
         </div>
         <div class="modal-item">
           <div class="modal-item-label">更新個人資料</div>
