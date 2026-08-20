@@ -1007,16 +1007,16 @@
       input.type = input.type === 'password' ? 'text' : 'password';
     }
 
-    // Embedded Complete Dataset
+    // Embedded Complete Dataset from Updated CSV (08/20 Latest Update)
     const rawData = [
       { id: 1, dealer: "秉皇科技有限公司", store: "A#SHOP 新北鶯歌店", name: "楊旻軒", d: "V", e: "V", f: "V", g: "V", wk: ["Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","G","X"], u: "12", v: "" },
       { id: 2, dealer: "秉皇科技有限公司", store: "A#SHOP 新北鶯歌店", name: "郭文昌", d: "V", e: "V", f: "V", g: "V", wk: ["Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","G","X"], u: "12", v: "V" },
       { id: 3, dealer: "秉皇科技有限公司", store: "A#SHOP 新北鶯歌店", name: "邱珮瑋", d: "V", e: "V", f: "V", g: "V", wk: ["Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","G","X"], u: "12", v: "V" },
-      { id: 4, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化市店", name: "李昀芳", d: "V", e: "V", f: "V", g: "V", wk: ["Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","G","X"], u: "11", v: "V" },
-      { id: 5, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化市店", name: "胡雅恩", d: "V", e: "V", f: "V", g: "V", wk: ["Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","G","X"], u: "11", v: "V" },
+      { id: 4, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化市店", name: "李昀芳", d: "V", e: "V", f: "V", g: "V", wk: ["Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","G","X"], u: "12", v: "V" },
+      { id: 5, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化市店", name: "胡雅恩", d: "V", e: "V", f: "V", g: "V", wk: ["Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","G","X"], u: "12", v: "V" },
       { id: 6, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化市店", name: "宋榮輝", d: "V", e: "V", f: "V", g: "V", wk: ["Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","G","X"], u: "12", v: "V" },
       { id: 7, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化市店", name: "吳宜庭", d: "", e: "", f: "", g: "V", wk: ["","","","","","","","","","","","G","X"], u: "12", v: "V" },
-      { id: 8, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化鹿港店", name: "楊琹伊", d: "V", e: "V", f: "V", g: "V", wk: ["Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","G","X"], u: "11", v: "V" },
+      { id: 8, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化鹿港店", name: "楊琹伊", d: "V", e: "V", f: "V", g: "V", wk: ["Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","G","X"], u: "12", v: "V" },
       { id: 9, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化鹿港店", name: "沈思妤", d: "V", e: "V", f: "V", g: "V", wk: ["Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","","G","X"], u: "12", v: "V" },
       { id: 10, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化鹿港店", name: "李政儒", d: "V", e: "V", f: "V", g: "V", wk: ["Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","G","X"], u: "12", v: "V" },
       { id: 11, dealer: "秉皇科技有限公司", store: "A#SHOP新北市土城店", name: "翁湘庭", d: "V", e: "V", f: "V", g: "V", wk: ["Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","G","X"], u: "12", v: "" },
@@ -1026,18 +1026,18 @@
       { id: 15, dealer: "宏驜有限公司", store: "LIFONE 花蓮遠東百貨店", name: "朱莉慈", d: "V", e: "V", f: "V", g: "", wk: ["Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","G","X"], u: "11", v: "V" },
       { id: 16, dealer: "宏驜有限公司", store: "LIFONE 花蓮遠東百貨店", name: "劉懿萱", d: "V", e: "V", f: "V", g: "V", wk: ["Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","G","X"], u: "12", v: "" },
       { id: 17, dealer: "宏驜有限公司", store: "LIFONE 花蓮遠東百貨店", name: "李宜諪", d: "V", e: "V", f: "V", g: "V", wk: ["Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","G","X"], u: "12", v: "V" },
-      { id: 18, dealer: "一七二有限公司", store: "STAMINA 新竹竹東店", name: "徐佳萱", d: "V", e: "V", f: "V", g: "V", wk: ["Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","G","X"], u: "11", v: "V" },
-      { id: 19, dealer: "一七二有限公司", store: "STAMINA 新竹竹東店", name: "陳瑞滿", d: "V", e: "V", f: "V", g: "V", wk: ["Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","G","X"], u: "11", v: "V" },
+      { id: 18, dealer: "一七二有限公司", store: "STAMINA 新竹竹東店", name: "徐佳萱", d: "V", e: "V", f: "V", g: "V", wk: ["Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","G","X"], u: "12", v: "V" },
+      { id: 19, dealer: "一七二有限公司", store: "STAMINA 新竹竹東店", name: "陳瑞滿", d: "V", e: "V", f: "V", g: "V", wk: ["Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","G","X"], u: "12", v: "V" },
       { id: 20, dealer: "一七二有限公司", store: "STAMINA 新竹竹東店", name: "陳若庭", d: "V", e: "V", f: "V", g: "V", wk: ["Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","G","X"], u: "12", v: "V" },
       { id: 21, dealer: "富鴻數位有限公司", store: "手機王數位 雲林虎尾店", name: "王宥菁", d: "V", e: "V", f: "V", g: "V", wk: ["Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","","G","X"], u: "12", v: "" },
       { id: 22, dealer: "富鴻數位有限公司", store: "手機王數位 雲林虎尾店", name: "蘇韋安", d: "V", e: "V", f: "V", g: "V", wk: ["Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","G","X"], u: "12", v: "V" },
       { id: 23, dealer: "富鴻數位有限公司", store: "手機王數位 雲林虎尾店", name: "楊孝祖", d: "V", e: "V", f: "V", g: "V", wk: ["Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","G","X"], u: "12", v: "V" },
       { id: 24, dealer: "富鴻數位有限公司", store: "手機王數位 雲林虎尾店", name: "Zeng, Ivy", d: "", e: "", f: "", g: "", wk: ["","","","","","","","","","","","G","X"], u: "", v: "" },
       { id: 25, dealer: "富鴻數位有限公司", store: "手機王數位雲林斗六店", name: "雲德睿", d: "V", e: "V", f: "V", g: "V", wk: ["Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","","G","X"], u: "12", v: "" },
-      { id: 26, dealer: "富鴻數位有限公司", store: "手機王數位雲林斗六店", name: "黃菲比", d: "V", e: "V", f: "V", g: "V", wk: ["Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","G","X"], u: "11", v: "" },
+      { id: 26, dealer: "富鴻數位有限公司", store: "手機王數位雲林斗六店", name: "黃菲比", d: "V", e: "V", f: "V", g: "V", wk: ["Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","G","X"], u: "12", v: "" },
       { id: 27, dealer: "鑫旺樹企業有限公司", store: "飛訊部落 嘉義朴子店", name: "吳欣儒", d: "V", e: "V", f: "V", g: "V", wk: ["Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","G","X"], u: "12", v: "V" },
       { id: 28, dealer: "鑫旺樹企業有限公司", store: "飛訊部落 嘉義朴子店", name: "林靜雯", d: "V", e: "V", f: "V", g: "V", wk: ["Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","G","X"], u: "11", v: "" },
-      { id: 29, dealer: "鑫旺樹企業有限公司", store: "飛訊部落台南新營店", name: "YenWennie", d: "V", e: "V", f: "V", g: "V", wk: ["Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","G","X"], u: "11", v: "" },
+      { id: 29, dealer: "鑫旺樹企業有限公司", store: "飛訊部落台南新營店", name: "YenWennie", d: "V", e: "V", f: "V", g: "V", wk: ["Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","G","X"], u: "12", v: "" },
       { id: 30, dealer: "鑫旺樹企業有限公司", store: "飛訊部落台南新營店", name: "蔡幸娟", d: "V", e: "V", f: "V", g: "V", wk: ["Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","G","X"], u: "12", v: "V" },
       { id: 31, dealer: "鑫旺樹企業有限公司", store: "飛訊部落台南新營店", name: "吳嫚慈", d: "V", e: "V", f: "V", g: "V", wk: ["Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","Y","G","X"], u: "12", v: "V" },
       { id: 32, dealer: "優銳資訊有限公司", store: "暐固科技台東店", name: "郭瑋", d: "V", e: "V", f: "V", g: "V", wk: ["Y","Y","Y","Y","Y","Y","","","","","","G","X"], u: "6", v: "" },
