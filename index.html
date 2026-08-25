@@ -564,7 +564,7 @@
       box-shadow: 0 0 8px var(--color-green-glow);
     }
 
-    /* Orange Light for Numeric Value < Current Week Target (e.g. 11 < 12) */
+    /* Orange Light for Numeric Value < Current Week Target (e.g. 12 < 13) */
     .light-orange {
       background-color: var(--color-orange-light);
       color: #c2410c;
@@ -832,7 +832,7 @@
       <div class="header-stats">
         <div class="stat-pill">經銷門市: <strong id="stat-stores">0</strong> 家</div>
         <div class="stat-pill">追蹤人員: <strong id="stat-people">0</strong> 人</div>
-        <div class="stat-pill">平均週完成: <strong id="stat-avg-wk">0</strong> / 12 週</div>
+        <div class="stat-pill">平均週完成: <strong id="stat-avg-wk">0</strong> / 13 週</div>
         <button class="logout-btn" onclick="handleLogout()" title="登出並鎖定系統">🔒 登出</button>
       </div>
     </header>
@@ -848,7 +848,7 @@
           <select id="filter-status" class="select-input" onchange="renderTable()">
             <option value="">所有人員狀態</option>
             <option value="gap">包含「進度落差」者</option>
-            <option value="completed">前12週 100% 已完成</option>
+            <option value="completed">前13週 100% 已完成</option>
           </select>
         </div>
       </div>
@@ -1059,18 +1059,18 @@
     }
 
     // Helper: Check non H~T Light Indicator status (with targetWk check for Column U)
-    function getLightHtml(val, isNumericCol = false, targetWk = 12) {
+    function getLightHtml(val, isNumericCol = false, targetWk = 13) {
       if (val && val.trim() !== '') {
         if (isNumericCol) {
           const num = parseInt(val, 10);
           if (!isNaN(num) && num < targetWk) {
-            // Orange light indicator when numeric value is less than current week target (e.g. < 12)
+            // Orange light indicator when numeric value is less than current week target (e.g. < 13)
             return `<span class="light-indicator light-orange" title="未達當週目標 (${targetWk}週): ${val}">
                       <span class="dot"></span>
                       <span class="label">${val}</span>
                     </span>`;
           } else {
-            // Green light indicator when numeric value reaches or exceeds current week target (e.g. >= 12)
+            // Green light indicator when numeric value reaches or exceeds current week target (e.g. >= 13)
             return `<span class="light-indicator light-green" title="已達當週目標: ${val}">
                       <span class="dot"></span>
                       <span class="label">${val}</span>
@@ -1094,7 +1094,7 @@
       if (v === 'Y' || v === 'GY' || v === 'V') return 'green';
       if (v === 'G') return 'light-gray';
       if (v === 'X') return 'dark-gray';
-      if (wkIndex < 12) return 'orange';
+      if (wkIndex < 13) return 'orange';
       return 'dark-gray';
     }
 
@@ -1126,11 +1126,11 @@
       }).join('');
     }
 
-    // Check if person has lag/gap in WK1..WK12
+    // Check if person has lag/gap in WK1..WK13
     function hasLag(item) {
-      for (let i = 0; i < 12; i++) {
+      for (let i = 0; i < 13; i++) {
         const val = (item.wk[i] || '').trim();
-        if (val !== 'Y' && val !== 'GY' && val !== 'V') {
+        if (val !== 'Y' && val !== 'GY' && val !== 'V' && val !== 'G' && val !== 'X') {
           return true;
         }
       }
@@ -1171,7 +1171,7 @@
 
       let totalY = 0;
       filtered.forEach(item => {
-        const yCount = item.wk.slice(0, 12).filter(w => ['Y','GY','V'].includes((w||'').trim())).length;
+        const yCount = item.wk.slice(0, 13).filter(w => ['Y','GY','V'].includes((w||'').trim())).length;
         totalY += yCount;
       });
       const avgY = filtered.length ? (totalY / filtered.length).toFixed(1) : '0';
@@ -1184,8 +1184,8 @@
 
         const wkCellsHtml = renderWkCells(item.wk);
         
-        // Target Week is WK12 (12)
-        const targetWkNum = 12;
+        // Target Week is WK13 (13)
+        const targetWkNum = 13;
 
         tr.innerHTML = `
           <td class="col-dealer"><span class="text-ellipsis" title="${item.dealer}">${item.dealer}</span></td>
@@ -1209,7 +1209,7 @@
       document.getElementById('modal-person-name').textContent = `${item.name} (${item.store})`;
       
       const yCount = item.wk.filter(w => ['Y','GY','V'].includes((w||'').trim())).length;
-      const targetWkNum = 12;
+      const targetWkNum = 13;
       
       let uStatusHtml = '🔴 未完成';
       if (item.u) {
