@@ -731,6 +731,7 @@
       <div class="header-stats">
         <div class="stat-pill">經銷門市: <strong id="stat-stores">0</strong> 家</div>
         <div class="stat-pill">追蹤人員: <strong id="stat-people">0</strong> 人</div>
+        <div class="stat-pill">任務全達標: <strong id="stat-tasks-done">0</strong> 人</div>
         <div class="stat-pill">個資更新: <strong id="stat-profile">0</strong> / 34 人</div>
         <button class="logout-btn" onclick="handleLogout()" title="登出並鎖定系統">🔒 登出</button>
       </div>
@@ -746,8 +747,10 @@
           </select>
           <select id="filter-status" class="select-input" onchange="renderTable()">
             <option value="">所有人員狀態</option>
+            <option value="all-done">全數 4 項皆完成者</option>
+            <option value="tasks-done">9月三大任務已完成者</option>
+            <option value="tasks-pending">9月任務未完成者</option>
             <option value="profile-pending">個資未更新者</option>
-            <option value="profile-done">個資已更新者</option>
           </select>
         </div>
       </div>
@@ -875,27 +878,27 @@
       input.type = input.type === 'password' ? 'text' : 'password';
     }
 
-    // Embedded Complete Dataset from Updated CSV (09/01 11:58 Revision)
+    // Embedded Complete Dataset from Updated CSV (09/02 11:02 Revision)
     const rawData = [
-      { id: 1, dealer: "秉皇科技有限公司", store: "A#SHOP 新北鶯歌店", name: "楊旻軒", salesCoach: "", igniteSept: "", guide: "", profile: "V" },
-      { id: 2, dealer: "秉皇科技有限公司", store: "A#SHOP 新北鶯歌店", name: "郭文昌", salesCoach: "", igniteSept: "", guide: "", profile: "V" },
-      { id: 3, dealer: "秉皇科技有限公司", store: "A#SHOP 新北鶯歌店", name: "邱珮瑋", salesCoach: "", igniteSept: "", guide: "", profile: "V" },
-      { id: 4, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化市店", name: "李昀芳", salesCoach: "", igniteSept: "", guide: "", profile: "V" },
-      { id: 5, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化市店", name: "胡雅恩", salesCoach: "", igniteSept: "", guide: "", profile: "V" },
-      { id: 6, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化市店", name: "宋榮輝", salesCoach: "", igniteSept: "", guide: "", profile: "V" },
+      { id: 1, dealer: "秉皇科技有限公司", store: "A#SHOP 新北鶯歌店", name: "楊旻軒", salesCoach: "V", igniteSept: "V", guide: "V", profile: "V" },
+      { id: 2, dealer: "秉皇科技有限公司", store: "A#SHOP 新北鶯歌店", name: "郭文昌", salesCoach: "V", igniteSept: "V", guide: "V", profile: "V" },
+      { id: 3, dealer: "秉皇科技有限公司", store: "A#SHOP 新北鶯歌店", name: "邱珮瑋", salesCoach: "V", igniteSept: "V", guide: "V", profile: "V" },
+      { id: 4, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化市店", name: "李昀芳", salesCoach: "V", igniteSept: "V", guide: "V", profile: "V" },
+      { id: 5, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化市店", name: "胡雅恩", salesCoach: "V", igniteSept: "V", guide: "V", profile: "V" },
+      { id: 6, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化市店", name: "宋榮輝", salesCoach: "V", igniteSept: "V", guide: "V", profile: "V" },
       { id: 7, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化市店", name: "吳宜庭", salesCoach: "", igniteSept: "", guide: "", profile: "V" },
       { id: 8, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化鹿港店", name: "楊琹伊", salesCoach: "", igniteSept: "", guide: "", profile: "V" },
-      { id: 9, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化鹿港店", name: "沈思妤", salesCoach: "", igniteSept: "", guide: "", profile: "V" },
-      { id: 10, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化鹿港店", name: "李政儒", salesCoach: "", igniteSept: "", guide: "", profile: "V" },
-      { id: 11, dealer: "秉皇科技有限公司", store: "A#SHOP新北市土城店", name: "翁湘庭", salesCoach: "", igniteSept: "", guide: "", profile: "V" },
-      { id: 12, dealer: "秉皇科技有限公司", store: "A#SHOP新北市土城店", name: "李智豪", salesCoach: "", igniteSept: "", guide: "", profile: "V" },
-      { id: 13, dealer: "秉皇科技有限公司", store: "A#SHOP新北市土城店", name: "柯宛汝", salesCoach: "", igniteSept: "", guide: "", profile: "V" },
-      { id: 14, dealer: "秉皇科技有限公司", store: "A#SHOP新北市土城店", name: "林芳蕾", salesCoach: "", igniteSept: "", guide: "", profile: "V" },
+      { id: 9, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化鹿港店", name: "沈思妤", salesCoach: "V", igniteSept: "V", guide: "V", profile: "V" },
+      { id: 10, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化鹿港店", name: "李政儒", salesCoach: "V", igniteSept: "V", guide: "V", profile: "V" },
+      { id: 11, dealer: "秉皇科技有限公司", store: "A#SHOP新北市土城店", name: "翁湘庭", salesCoach: "V", igniteSept: "V", guide: "V", profile: "V" },
+      { id: 12, dealer: "秉皇科技有限公司", store: "A#SHOP新北市土城店", name: "李智豪", salesCoach: "V", igniteSept: "V", guide: "V", profile: "V" },
+      { id: 13, dealer: "秉皇科技有限公司", store: "A#SHOP新北市土城店", name: "柯宛汝", salesCoach: "V", igniteSept: "V", guide: "V", profile: "V" },
+      { id: 14, dealer: "秉皇科技有限公司", store: "A#SHOP新北市土城店", name: "林芳蕾", salesCoach: "V", igniteSept: "V", guide: "V", profile: "V" },
       { id: 15, dealer: "宏驜有限公司", store: "LIFONE 花蓮遠東百貨店", name: "朱莉慈", salesCoach: "", igniteSept: "", guide: "", profile: "V" },
-      { id: 16, dealer: "宏驜有限公司", store: "LIFONE 花蓮遠東百貨店", name: "劉懿萱", salesCoach: "", igniteSept: "", guide: "", profile: "V" },
+      { id: 16, dealer: "宏驜有限公司", store: "LIFONE 花蓮遠東百貨店", name: "劉懿萱", salesCoach: "V", igniteSept: "V", guide: "V", profile: "V" },
       { id: 17, dealer: "宏驜有限公司", store: "LIFONE 花蓮遠東百貨店", name: "李宜諪", salesCoach: "", igniteSept: "", guide: "", profile: "V" },
-      { id: 18, dealer: "一七二有限公司", store: "STAMINA 新竹竹東店", name: "徐佳萱", salesCoach: "", igniteSept: "", guide: "", profile: "V" },
-      { id: 19, dealer: "一七二有限公司", store: "STAMINA 新竹竹東店", name: "陳瑞滿", salesCoach: "", igniteSept: "", guide: "", profile: "V" },
+      { id: 18, dealer: "一七二有限公司", store: "STAMINA 新竹竹東店", name: "徐佳萱", salesCoach: "V", igniteSept: "V", guide: "V", profile: "V" },
+      { id: 19, dealer: "一七二有限公司", store: "STAMINA 新竹竹東店", name: "陳瑞滿", salesCoach: "V", igniteSept: "V", guide: "V", profile: "V" },
       { id: 20, dealer: "一七二有限公司", store: "STAMINA 新竹竹東店", name: "陳若庭", salesCoach: "", igniteSept: "", guide: "", profile: "V" },
       { id: 21, dealer: "富鴻數位有限公司", store: "手機王數位 雲林虎尾店", name: "王宥菁", salesCoach: "", igniteSept: "", guide: "", profile: "V" },
       { id: 22, dealer: "富鴻數位有限公司", store: "手機王數位 雲林虎尾店", name: "蘇韋安", salesCoach: "", igniteSept: "", guide: "", profile: "V" },
@@ -903,14 +906,14 @@
       { id: 24, dealer: "富鴻數位有限公司", store: "手機王數位 雲林虎尾店", name: "曾芊育", salesCoach: "", igniteSept: "", guide: "", profile: "V" },
       { id: 25, dealer: "富鴻數位有限公司", store: "手機王數位雲林斗六店", name: "雲德睿", salesCoach: "", igniteSept: "", guide: "", profile: "V" },
       { id: 26, dealer: "富鴻數位有限公司", store: "手機王數位雲林斗六店", name: "黃菲比", salesCoach: "", igniteSept: "", guide: "", profile: "V" },
-      { id: 27, dealer: "鑫旺樹企業有限公司", store: "飛訊部落 嘉義朴子店", name: "吳欣儒", salesCoach: "", igniteSept: "", guide: "", profile: "V" },
+      { id: 27, dealer: "鑫旺樹企業有限公司", store: "飛訊部落 嘉義朴子店", name: "吳欣儒", salesCoach: "V", igniteSept: "V", guide: "V", profile: "V" },
       { id: 28, dealer: "鑫旺樹企業有限公司", store: "飛訊部落 嘉義朴子店", name: "林靜雯", salesCoach: "", igniteSept: "", guide: "", profile: "V" },
-      { id: 29, dealer: "鑫旺樹企業有限公司", store: "飛訊部落台南新營店", name: "YenWennie", salesCoach: "", igniteSept: "", guide: "", profile: "" },
-      { id: 30, dealer: "鑫旺樹企業有限公司", store: "飛訊部落台南新營店", name: "蔡幸娟", salesCoach: "", igniteSept: "", guide: "", profile: "V" },
-      { id: 31, dealer: "鑫旺樹企業有限公司", store: "飛訊部落台南新營店", name: "吳嫚慈", salesCoach: "", igniteSept: "", guide: "", profile: "V" },
-      { id: 32, dealer: "優銳資訊有限公司", store: "暐固科技台東店", name: "郭瑋", salesCoach: "", igniteSept: "", guide: "", profile: "V" },
-      { id: 33, dealer: "優銳資訊有限公司", store: "暐固科技台東店", name: "蔡舒蕎", salesCoach: "", igniteSept: "", guide: "", profile: "V" },
-      { id: 34, dealer: "優銳資訊有限公司", store: "暐固科技台東店", name: "吳思慧", salesCoach: "", igniteSept: "", guide: "", profile: "V" }
+      { id: 29, dealer: "鑫旺樹企業有限公司", store: "飛訊部落台南新營店", name: "YenWennie", salesCoach: "V", igniteSept: "V", guide: "V", profile: "" },
+      { id: 30, dealer: "鑫旺樹企業有限公司", store: "飛訊部落台南新營店", name: "蔡幸娟", salesCoach: "V", igniteSept: "V", guide: "V", profile: "V" },
+      { id: 31, dealer: "鑫旺樹企業有限公司", store: "飛訊部落台南新營店", name: "吳嫚慈", salesCoach: "V", igniteSept: "V", guide: "V", profile: "V" },
+      { id: 32, dealer: "優銳資訊有限公司", store: "暐固科技台東店", name: "郭峻瑋", salesCoach: "", igniteSept: "", guide: "", profile: "V" },
+      { id: 33, dealer: "優銳資訊有限公司", store: "暐固科技台東店", name: "蔡舒蕎", salesCoach: "V", igniteSept: "V", guide: "V", profile: "V" },
+      { id: 34, dealer: "優銳資訊有限公司", store: "暐固科技台東店", name: "吳思慧", salesCoach: "V", igniteSept: "V", guide: "V", profile: "V" }
     ];
 
     // Initialize Store Filter Dropdown
@@ -964,10 +967,17 @@
         const matchStore = !selectedStore || item.store === selectedStore;
 
         let matchStatus = true;
-        if (selectedStatus === 'profile-pending') {
-          matchStatus = !item.profile || item.profile.trim().toUpperCase() !== 'V';
-        } else if (selectedStatus === 'profile-done') {
-          matchStatus = item.profile && item.profile.trim().toUpperCase() === 'V';
+        const isTasksDone = item.salesCoach === 'V' && item.igniteSept === 'V' && item.guide === 'V';
+        const isProfileDone = item.profile && item.profile.trim().toUpperCase() === 'V';
+
+        if (selectedStatus === 'all-done') {
+          matchStatus = isTasksDone && isProfileDone;
+        } else if (selectedStatus === 'tasks-done') {
+          matchStatus = isTasksDone;
+        } else if (selectedStatus === 'tasks-pending') {
+          matchStatus = !isTasksDone;
+        } else if (selectedStatus === 'profile-pending') {
+          matchStatus = !isProfileDone;
         }
 
         return matchSearch && matchStore && matchStatus;
@@ -977,6 +987,9 @@
       const uniqueStores = new Set(filtered.map(i => i.store)).size;
       document.getElementById('stat-stores').textContent = uniqueStores;
       document.getElementById('stat-people').textContent = filtered.length;
+
+      const tasksDoneCount = filtered.filter(i => i.salesCoach === 'V' && i.igniteSept === 'V' && i.guide === 'V').length;
+      document.getElementById('stat-tasks-done').textContent = `${tasksDoneCount} 人`;
 
       const profileDoneCount = filtered.filter(i => i.profile && i.profile.trim().toUpperCase() === 'V').length;
       document.getElementById('stat-profile').textContent = `${profileDoneCount} / ${filtered.length}`;
