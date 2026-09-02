@@ -658,20 +658,23 @@
 
     .modal-item {
       background: #f8fafc;
-      padding: 10px 12px;
-      border-radius: 8px;
+      padding: 12px 14px;
+      border-radius: 10px;
       border: 1px solid var(--border-color);
     }
 
     .modal-item-label {
       color: var(--text-muted);
       font-size: 0.75rem;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
 
     .modal-item-value {
       font-weight: 600;
       color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
     /* Responsive adjustments */
@@ -1013,7 +1016,7 @@
       });
     }
 
-    // Modal Control
+    // Modal Control matching PR-WIIN style (Image 2)
     function openModal(item) {
       document.getElementById('modal-person-name').textContent = `${item.name} (${item.store})`;
       
@@ -1021,6 +1024,9 @@
       const isIgnite = item.igniteSept && item.igniteSept.trim().toUpperCase() === 'V';
       const isGuide = item.guide && item.guide.trim().toUpperCase() === 'V';
       const isProfile = item.profile && item.profile.trim().toUpperCase() === 'V';
+
+      const doneCount = (isSC ? 1 : 0) + (isIgnite ? 1 : 0) + (isGuide ? 1 : 0) + (isProfile ? 1 : 0);
+      const percent = Math.round((doneCount / 4) * 100);
 
       const content = document.getElementById('modal-content');
       content.innerHTML = `
@@ -1046,9 +1052,15 @@
         </div>
         <div class="modal-item">
           <div class="modal-item-label">更新個人資料</div>
-          <div class="modal-item-value" style="display:flex; align-items:center; gap:8px;">
+          <div class="modal-item-value" style="display:flex; align-items:center; gap:6px;">
             ${isProfile ? '🟢 已完成' : '🔴 未完成'}
-            <a href="https://reurl.cc/dOW9gz" target="_blank" rel="noopener noreferrer" style="color:#2563eb; font-size:0.8rem; font-weight:500;">(開啟網頁)</a>
+            <a href="https://reurl.cc/dOW9gz" target="_blank" rel="noopener noreferrer" style="color:#2563eb; font-size:0.8rem; font-weight:500; text-decoration:underline;">(開啟網頁)</a>
+          </div>
+        </div>
+        <div class="modal-item" style="grid-column: span 2;">
+          <div class="modal-item-label">個人任務達成進度</div>
+          <div class="modal-item-value" style="color:#2563eb; font-size:1.05rem; font-weight:700;">
+            已完成 ${doneCount} / 4 項任務 (${percent}%)
           </div>
         </div>
       `;
