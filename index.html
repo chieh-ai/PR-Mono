@@ -744,7 +744,7 @@
         <div class="stat-pill">追蹤人員: <strong id="stat-people">0</strong> 人</div>
         <div class="stat-pill">13週獎勵: <strong id="stat-reward">0</strong> 人</div>
         <div class="stat-pill">基礎任務達標: <strong id="stat-tasks-done">0</strong> 人</div>
-        <div class="stat-pill">個資更新: <strong id="stat-profile">0</strong> / 34 人</div>
+        <div class="stat-pill">個資更新: <strong id="stat-profile">0 / 34</strong> 人</div>
         <button class="logout-btn" onclick="handleLogout()" title="登出並鎖定系統">🔒 登出</button>
       </div>
     </header>
@@ -1012,12 +1012,12 @@
       document.getElementById('stat-people').textContent = filtered.length;
 
       const rewardDoneCount = filtered.filter(i => i.mypalReward && i.mypalReward.trim().toUpperCase() === 'V').length;
-      document.getElementById('stat-reward').textContent = `${rewardDoneCount} 人`;
+      document.getElementById('stat-reward').textContent = rewardDoneCount;
 
       const tasksDoneCount = filtered.filter(i => 
         i.profile === 'V' && i.salesCoach === 'V' && i.igniteSept === 'V' && i.guide === 'V'
       ).length;
-      document.getElementById('stat-tasks-done').textContent = `${tasksDoneCount} 人`;
+      document.getElementById('stat-tasks-done').textContent = tasksDoneCount;
 
       const profileDoneCount = filtered.filter(i => i.profile && i.profile.trim().toUpperCase() === 'V').length;
       document.getElementById('stat-profile').textContent = `${profileDoneCount} / ${filtered.length}`;
