@@ -379,7 +379,7 @@
       border-collapse: separate;
       border-spacing: 0;
       width: 100%;
-      min-width: 1140px;
+      min-width: 1240px;
       font-size: 0.85rem;
     }
 
@@ -742,10 +742,12 @@
       <div class="header-stats">
         <div class="stat-pill">經銷門市: <strong id="stat-stores">0</strong> 家</div>
         <div class="stat-pill">追蹤人員: <strong id="stat-people">0</strong> 人</div>
+        <div class="stat-pill">特別活動選集: <strong id="stat-apple">0</strong> 人</div>
+        <div class="stat-pill">MyPal一階: <strong id="stat-mypal1">0</strong> 人</div>
+        <div class="stat-pill">MyPal二階: <strong id="stat-mypal2">0</strong> 人</div>
         <div class="stat-pill">13週獎勵: <strong id="stat-reward">0</strong> 人</div>
         <div class="stat-pill">基礎任務達標: <strong id="stat-tasks-done">0</strong> 人</div>
-        <div class="stat-pill">MyPal一階: <strong id="stat-mypal1">0</strong> 人</div>
-        <div class="stat-pill">特別活動選集: <strong id="stat-apple">0</strong> 人</div>
+        <div class="stat-pill">NPI直播: <strong id="stat-npi">0</strong> 人</div>
         <div class="stat-pill">個資更新: <strong id="stat-profile">0 / 34</strong> 人</div>
         <button class="logout-btn" onclick="handleLogout()" title="登出並鎖定系統">🔒 登出</button>
       </div>
@@ -761,10 +763,12 @@
           </select>
           <select id="filter-status" class="select-input" onchange="renderTable()">
             <option value="">所有人員狀態</option>
-            <option value="apple-done">特別活動選集已完成 (32人)</option>
-            <option value="apple-pending">特別活動選集未完成 (2人)</option>
-            <option value="mypal1-done">MyPal第一階段已完成 (9人)</option>
-            <option value="mypal1-pending">MyPal第一階段未完成 (25人)</option>
+            <option value="apple-done">特別活動選集已完成 (34人 - 全員達標)</option>
+            <option value="mypal1-done">MyPal一階(iPhone)已完成 (15人)</option>
+            <option value="mypal1-pending">MyPal一階(iPhone)未完成 (19人)</option>
+            <option value="mypal2-done">MyPal二階(Watch)已完成 (12人)</option>
+            <option value="mypal2-pending">MyPal二階(Watch)未完成 (22人)</option>
+            <option value="npi-pending">NPI直播未完成 (34人)</option>
             <option value="reward-done">獲得 13 週獎勵者 (27人)</option>
             <option value="reward-pending">未獲 13 週獎勵者 (7人)</option>
             <option value="base-done">前4項基礎任務全達標者 (32人)</option>
@@ -804,6 +808,7 @@
             <th>認識 Guide 選集</th>
             <th colspan="3" class="mypal-header">MyPal</th>
             <th>2026 年 9 月<br>Apple 特別活動選集</th>
+            <th>2026 NPI 直播<br>回放與測驗</th>
           </tr>
           <!-- Header Row 2 -->
           <tr>
@@ -826,9 +831,10 @@
             <th class="sub-header-label">九月</th>
             <th class="sub-header-label"></th>
             <th class="sub-header-label">獲得 13 週<br>完成獎勵</th>
-            <th class="sub-header-label">第一階段<br>09/18 09:00 前</th>
-            <th class="sub-header-label">第二階段<br>09/24 23:59 前</th>
+            <th class="sub-header-label">第一階段 iPhone<br>09/18 09:00 前</th>
+            <th class="sub-header-label">第二階段 Apple Watch<br>09/24 23:59 前</th>
             <th class="sub-header-label">09/17 12:00 前</th>
+            <th class="sub-header-label">09/28 23:59 前</th>
           </tr>
         </thead>
         <tbody id="table-body">
@@ -903,42 +909,42 @@
       input.type = input.type === 'password' ? 'text' : 'password';
     }
 
-    // Embedded Complete Dataset from Updated CSV (09/17 11:54 Revision)
+    // Embedded Complete Dataset from Updated CSV (09/17 12:34 Revision)
     const rawData = [
-      { id: 1, dealer: "秉皇科技有限公司", store: "A#SHOP 新北鶯歌店", name: "楊旻軒", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "V", mypalPhase2: "", appleEvent: "V" },
-      { id: 2, dealer: "秉皇科技有限公司", store: "A#SHOP 新北鶯歌店", name: "郭文昌", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "V", mypalPhase2: "", appleEvent: "V" },
-      { id: 3, dealer: "秉皇科技有限公司", store: "A#SHOP 新北鶯歌店", name: "邱珮瑋", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "", mypalPhase2: "", appleEvent: "V" },
-      { id: 4, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化市店", name: "李昀芳", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "", mypalPhase1: "", mypalPhase2: "", appleEvent: "V" },
-      { id: 5, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化市店", name: "胡雅恩", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "", mypalPhase2: "", appleEvent: "V" },
-      { id: 6, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化市店", name: "宋榮輝", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "V", mypalPhase2: "", appleEvent: "V" },
-      { id: 7, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化市店", name: "吳宜庭", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "V", mypalPhase2: "", appleEvent: "V" },
-      { id: 8, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化鹿港店", name: "楊琹伊", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "", mypalPhase2: "", appleEvent: "V" },
-      { id: 9, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化鹿港店", name: "沈思妤", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "", mypalPhase2: "", appleEvent: "V" },
-      { id: 10, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化鹿港店", name: "李政儒", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "V", mypalPhase2: "", appleEvent: "V" },
-      { id: 11, dealer: "秉皇科技有限公司", store: "A#SHOP新北市土城店", name: "翁湘庭", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "", mypalPhase2: "", appleEvent: "V" },
-      { id: 12, dealer: "秉皇科技有限公司", store: "A#SHOP新北市土城店", name: "李智豪", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "", mypalPhase2: "", appleEvent: "V" },
-      { id: 13, dealer: "秉皇科技有限公司", store: "A#SHOP新北市土城店", name: "柯宛汝", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "", mypalPhase2: "", appleEvent: "V" },
-      { id: 14, dealer: "秉皇科技有限公司", store: "A#SHOP新北市土城店", name: "林芳蕾", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "V", mypalPhase2: "", appleEvent: "V" },
-      { id: 15, dealer: "宏驜有限公司", store: "LIFONE 花蓮遠東百貨店", name: "朱莉慈", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "", mypalPhase2: "", appleEvent: "V" },
-      { id: 16, dealer: "宏驜有限公司", store: "LIFONE 花蓮遠東百貨店", name: "劉懿萱", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "", mypalPhase2: "", appleEvent: "V" },
-      { id: 17, dealer: "宏驜有限公司", store: "LIFONE 花蓮遠東百貨店", name: "李宜諪", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "", mypalPhase2: "", appleEvent: "V" },
-      { id: 18, dealer: "一七二有限公司", store: "STAMINA 新竹竹東店", name: "徐佳萱", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "", mypalPhase2: "", appleEvent: "" },
-      { id: 19, dealer: "一七二有限公司", store: "STAMINA 新竹竹東店", name: "陳瑞滿", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "", mypalPhase2: "", appleEvent: "V" },
-      { id: 20, dealer: "一七二有限公司", store: "STAMINA 新竹竹東店", name: "陳若庭", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "", mypalPhase2: "", appleEvent: "V" },
-      { id: 21, dealer: "富鴻數位有限公司", store: "手機王數位 雲林虎尾店", name: "王宥菁", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "", mypalPhase1: "", mypalPhase2: "", appleEvent: "" },
-      { id: 22, dealer: "富鴻數位有限公司", store: "手機王數位 雲林虎尾店", name: "蘇韋安", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "", mypalPhase1: "", mypalPhase2: "", appleEvent: "V" },
-      { id: 23, dealer: "富鴻數位有限公司", store: "手機王數位 雲林虎尾店", name: "楊孝祖", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "", mypalPhase2: "", appleEvent: "V" },
-      { id: 24, dealer: "富鴻數位有限公司", store: "手機王數位 雲林虎尾店", name: "曾芊育", profile: "V", salesCoach: "", igniteSept: "", guide: "", mypalReward: "", mypalPhase1: "", mypalPhase2: "", appleEvent: "V" },
-      { id: 25, dealer: "富鴻數位有限公司", store: "手機王數位雲林斗六店", name: "雲德睿", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "", mypalPhase1: "", mypalPhase2: "", appleEvent: "V" },
-      { id: 26, dealer: "富鴻數位有限公司", store: "手機王數位雲林斗六店", name: "黃雅紋", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "", mypalPhase1: "", mypalPhase2: "", appleEvent: "V" },
-      { id: 27, dealer: "鑫旺樹企業有限公司", store: "飛訊部落 嘉義朴子店", name: "吳欣儒", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "", mypalPhase2: "", appleEvent: "V" },
-      { id: 28, dealer: "鑫旺樹企業有限公司", store: "飛訊部落 嘉義朴子店", name: "林靜雯", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "", mypalPhase2: "", appleEvent: "V" },
-      { id: 29, dealer: "鑫旺樹企業有限公司", store: "飛訊部落台南新營店", name: "YenWennie", profile: "", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "V", mypalPhase2: "", appleEvent: "V" },
-      { id: 30, dealer: "鑫旺樹企業有限公司", store: "飛訊部落台南新營店", name: "蔡幸娟", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "V", mypalPhase2: "", appleEvent: "V" },
-      { id: 31, dealer: "鑫旺樹企業有限公司", store: "飛訊部落台南新營店", name: "吳嫚慈", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "V", mypalPhase2: "", appleEvent: "V" },
-      { id: 32, dealer: "優銳資訊有限公司", store: "暐固科技台東店", name: "郭峻瑋", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "", mypalPhase2: "", appleEvent: "V" },
-      { id: 33, dealer: "優銳資訊有限公司", store: "暐固科技台東店", name: "蔡舒蕎", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "", mypalPhase2: "", appleEvent: "V" },
-      { id: 34, dealer: "優銳資訊有限公司", store: "暐固科技台東店", name: "吳思慧", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "", mypalPhase1: "", mypalPhase2: "", appleEvent: "V" }
+      { id: 1, dealer: "秉皇科技有限公司", store: "A#SHOP 新北鶯歌店", name: "楊旻軒", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "V", mypalPhase2: "V", appleEvent: "V", npiLive: "" },
+      { id: 2, dealer: "秉皇科技有限公司", store: "A#SHOP 新北鶯歌店", name: "郭文昌", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "V", mypalPhase2: "", appleEvent: "V", npiLive: "" },
+      { id: 3, dealer: "秉皇科技有限公司", store: "A#SHOP 新北鶯歌店", name: "邱珮瑋", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "V", mypalPhase2: "V", appleEvent: "V", npiLive: "" },
+      { id: 4, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化市店", name: "李昀芳", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "", mypalPhase1: "V", mypalPhase2: "", appleEvent: "V", npiLive: "" },
+      { id: 5, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化市店", name: "胡雅恩", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "", mypalPhase2: "", appleEvent: "V", npiLive: "" },
+      { id: 6, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化市店", name: "宋榮輝", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "V", mypalPhase2: "V", appleEvent: "V", npiLive: "" },
+      { id: 7, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化市店", name: "吳宜庭", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "V", mypalPhase2: "", appleEvent: "V", npiLive: "" },
+      { id: 8, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化鹿港店", name: "楊琹伊", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "", mypalPhase2: "", appleEvent: "V", npiLive: "" },
+      { id: 9, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化鹿港店", name: "沈思妤", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "", mypalPhase2: "", appleEvent: "V", npiLive: "" },
+      { id: 10, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化鹿港店", name: "李政儒", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "V", mypalPhase2: "V", appleEvent: "V", npiLive: "" },
+      { id: 11, dealer: "秉皇科技有限公司", store: "A#SHOP新北市土城店", name: "翁湘庭", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "V", mypalPhase2: "V", appleEvent: "V", npiLive: "" },
+      { id: 12, dealer: "秉皇科技有限公司", store: "A#SHOP新北市土城店", name: "李智豪", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "V", mypalPhase2: "V", appleEvent: "V", npiLive: "" },
+      { id: 13, dealer: "秉皇科技有限公司", store: "A#SHOP新北市土城店", name: "柯宛汝", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "V", mypalPhase2: "V", appleEvent: "V", npiLive: "" },
+      { id: 14, dealer: "秉皇科技有限公司", store: "A#SHOP新北市土城店", name: "林芳蕾", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "V", mypalPhase2: "V", appleEvent: "V", npiLive: "" },
+      { id: 15, dealer: "宏驜有限公司", store: "LIFONE 花蓮遠東百貨店", name: "朱莉慈", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "", mypalPhase2: "", appleEvent: "V", npiLive: "" },
+      { id: 16, dealer: "宏驜有限公司", store: "LIFONE 花蓮遠東百貨店", name: "劉懿萱", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "", mypalPhase2: "", appleEvent: "V", npiLive: "" },
+      { id: 17, dealer: "宏驜有限公司", store: "LIFONE 花蓮遠東百貨店", name: "李宜諪", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "V", mypalPhase2: "V", appleEvent: "V", npiLive: "" },
+      { id: 18, dealer: "一七二有限公司", store: "STAMINA 新竹竹東店", name: "徐佳萱", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "", mypalPhase2: "", appleEvent: "V", npiLive: "" },
+      { id: 19, dealer: "一七二有限公司", store: "STAMINA 新竹竹東店", name: "陳瑞滿", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "", mypalPhase2: "", appleEvent: "V", npiLive: "" },
+      { id: 20, dealer: "一七二有限公司", store: "STAMINA 新竹竹東店", name: "陳若庭", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "", mypalPhase2: "", appleEvent: "V", npiLive: "" },
+      { id: 21, dealer: "富鴻數位有限公司", store: "手機王數位 雲林虎尾店", name: "王宥菁", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "", mypalPhase1: "", mypalPhase2: "", appleEvent: "V", npiLive: "" },
+      { id: 22, dealer: "富鴻數位有限公司", store: "手機王數位 雲林虎尾店", name: "蘇韋安", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "", mypalPhase1: "", mypalPhase2: "", appleEvent: "V", npiLive: "" },
+      { id: 23, dealer: "富鴻數位有限公司", store: "手機王數位 雲林虎尾店", name: "楊孝祖", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "", mypalPhase2: "", appleEvent: "V", npiLive: "" },
+      { id: 24, dealer: "富鴻數位有限公司", store: "手機王數位 雲林虎尾店", name: "曾芊育", profile: "V", salesCoach: "", igniteSept: "", guide: "", mypalReward: "", mypalPhase1: "", mypalPhase2: "", appleEvent: "V", npiLive: "" },
+      { id: 25, dealer: "富鴻數位有限公司", store: "手機王數位雲林斗六店", name: "雲德睿", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "", mypalPhase1: "", mypalPhase2: "", appleEvent: "V", npiLive: "" },
+      { id: 26, dealer: "富鴻數位有限公司", store: "手機王數位雲林斗六店", name: "黃雅紋", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "", mypalPhase1: "", mypalPhase2: "", appleEvent: "V", npiLive: "" },
+      { id: 27, dealer: "鑫旺樹企業有限公司", store: "飛訊部落 嘉義朴子店", name: "吳欣儒", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "", mypalPhase2: "", appleEvent: "V", npiLive: "" },
+      { id: 28, dealer: "鑫旺樹企業有限公司", store: "飛訊部落 嘉義朴子店", name: "林靜雯", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "", mypalPhase2: "", appleEvent: "V", npiLive: "" },
+      { id: 29, dealer: "鑫旺樹企業有限公司", store: "飛訊部落台南新營店", name: "YenWennie", profile: "", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "V", mypalPhase2: "V", appleEvent: "V", npiLive: "" },
+      { id: 30, dealer: "鑫旺樹企業有限公司", store: "飛訊部落台南新營店", name: "蔡幸娟", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "V", mypalPhase2: "V", appleEvent: "V", npiLive: "" },
+      { id: 31, dealer: "鑫旺樹企業有限公司", store: "飛訊部落台南新營店", name: "吳嫚慈", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "V", mypalPhase2: "V", appleEvent: "V", npiLive: "" },
+      { id: 32, dealer: "優銳資訊有限公司", store: "暐固科技台東店", name: "郭峻瑋", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "", mypalPhase2: "", appleEvent: "V", npiLive: "" },
+      { id: 33, dealer: "優銳資訊有限公司", store: "暐固科技台東店", name: "蔡舒蕎", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "V", mypalPhase1: "", mypalPhase2: "", appleEvent: "V", npiLive: "" },
+      { id: 34, dealer: "優銳資訊有限公司", store: "暐固科技台東店", name: "吳思慧", profile: "V", salesCoach: "V", igniteSept: "V", guide: "V", mypalReward: "", mypalPhase1: "", mypalPhase2: "", appleEvent: "V", npiLive: "" }
     ];
 
     // Initialize Store Filter Dropdown
@@ -999,7 +1005,9 @@
           item.guide === 'V';
         const isRewardDone = item.mypalReward && item.mypalReward.trim().toUpperCase() === 'V';
         const isMyPal1Done = item.mypalPhase1 && item.mypalPhase1.trim().toUpperCase() === 'V';
+        const isMyPal2Done = item.mypalPhase2 && item.mypalPhase2.trim().toUpperCase() === 'V';
         const isAppleDone = item.appleEvent && item.appleEvent.trim().toUpperCase() === 'V';
+        const isNpiDone = item.npiLive && item.npiLive.trim().toUpperCase() === 'V';
 
         if (selectedStatus === 'apple-done') {
           matchStatus = isAppleDone;
@@ -1009,6 +1017,14 @@
           matchStatus = isMyPal1Done;
         } else if (selectedStatus === 'mypal1-pending') {
           matchStatus = !isMyPal1Done;
+        } else if (selectedStatus === 'mypal2-done') {
+          matchStatus = isMyPal2Done;
+        } else if (selectedStatus === 'mypal2-pending') {
+          matchStatus = !isMyPal2Done;
+        } else if (selectedStatus === 'npi-done') {
+          matchStatus = isNpiDone;
+        } else if (selectedStatus === 'npi-pending') {
+          matchStatus = !isNpiDone;
         } else if (selectedStatus === 'reward-done') {
           matchStatus = isRewardDone;
         } else if (selectedStatus === 'reward-pending') {
@@ -1029,6 +1045,15 @@
       document.getElementById('stat-stores').textContent = uniqueStores;
       document.getElementById('stat-people').textContent = filtered.length;
 
+      const appleDoneCount = filtered.filter(i => i.appleEvent && i.appleEvent.trim().toUpperCase() === 'V').length;
+      document.getElementById('stat-apple').textContent = appleDoneCount;
+
+      const mypal1DoneCount = filtered.filter(i => i.mypalPhase1 && i.mypalPhase1.trim().toUpperCase() === 'V').length;
+      document.getElementById('stat-mypal1').textContent = mypal1DoneCount;
+
+      const mypal2DoneCount = filtered.filter(i => i.mypalPhase2 && i.mypalPhase2.trim().toUpperCase() === 'V').length;
+      document.getElementById('stat-mypal2').textContent = mypal2DoneCount;
+
       const rewardDoneCount = filtered.filter(i => i.mypalReward && i.mypalReward.trim().toUpperCase() === 'V').length;
       document.getElementById('stat-reward').textContent = rewardDoneCount;
 
@@ -1037,11 +1062,8 @@
       ).length;
       document.getElementById('stat-tasks-done').textContent = tasksDoneCount;
 
-      const mypal1DoneCount = filtered.filter(i => i.mypalPhase1 && i.mypalPhase1.trim().toUpperCase() === 'V').length;
-      document.getElementById('stat-mypal1').textContent = mypal1DoneCount;
-
-      const appleDoneCount = filtered.filter(i => i.appleEvent && i.appleEvent.trim().toUpperCase() === 'V').length;
-      document.getElementById('stat-apple').textContent = appleDoneCount;
+      const npiDoneCount = filtered.filter(i => i.npiLive && i.npiLive.trim().toUpperCase() === 'V').length;
+      document.getElementById('stat-npi').textContent = npiDoneCount;
 
       const profileDoneCount = filtered.filter(i => i.profile && i.profile.trim().toUpperCase() === 'V').length;
       document.getElementById('stat-profile').textContent = `${profileDoneCount} / ${filtered.length}`;
@@ -1063,6 +1085,7 @@
           <td>${getLightHtml(item.mypalPhase1)}</td>
           <td>${getLightHtml(item.mypalPhase2)}</td>
           <td>${getLightHtml(item.appleEvent)}</td>
+          <td>${getLightHtml(item.npiLive)}</td>
         `;
 
         tbody.appendChild(tr);
@@ -1077,13 +1100,14 @@
       const isSC = item.salesCoach && item.salesCoach.trim().toUpperCase() === 'V';
       const isIgnite = item.igniteSept && item.igniteSept.trim().toUpperCase() === 'V';
       const isGuide = item.guide && item.guide.trim().toUpperCase() === 'V';
+      const isAppleEvent = item.appleEvent && item.appleEvent.trim().toUpperCase() === 'V';
+      const isNpiLive = item.npiLive && item.npiLive.trim().toUpperCase() === 'V';
       const isReward = item.mypalReward && item.mypalReward.trim().toUpperCase() === 'V';
       const isMyPal1 = item.mypalPhase1 && item.mypalPhase1.trim().toUpperCase() === 'V';
       const isMyPal2 = item.mypalPhase2 && item.mypalPhase2.trim().toUpperCase() === 'V';
-      const isAppleEvent = item.appleEvent && item.appleEvent.trim().toUpperCase() === 'V';
 
-      const doneCount = (isProfile ? 1 : 0) + (isSC ? 1 : 0) + (isIgnite ? 1 : 0) + (isGuide ? 1 : 0) + (isAppleEvent ? 1 : 0) + (isReward ? 1 : 0) + (isMyPal1 ? 1 : 0) + (isMyPal2 ? 1 : 0);
-      const totalTasks = 8;
+      const doneCount = (isProfile ? 1 : 0) + (isSC ? 1 : 0) + (isIgnite ? 1 : 0) + (isGuide ? 1 : 0) + (isAppleEvent ? 1 : 0) + (isNpiLive ? 1 : 0) + (isReward ? 1 : 0) + (isMyPal1 ? 1 : 0) + (isMyPal2 ? 1 : 0);
+      const totalTasks = 9;
       const percent = Math.round((doneCount / totalTasks) * 100);
 
       const content = document.getElementById('modal-content');
@@ -1120,21 +1144,28 @@
           <div class="modal-item-value">${isAppleEvent ? '🟢 已完成' : '🔴 未完成'}</div>
         </div>
         <div class="modal-item">
-          <div class="modal-item-label">MyPal 獲得 13 週完成獎勵</div>
-          <div class="modal-item-value">${isReward ? '🟢 已獲得獎勵' : '🔴 未獲得'}</div>
+          <div class="modal-item-label">2026 NPI 直播回放與測驗 (09/28 23:59 前)</div>
+          <div class="modal-item-value">${isNpiLive ? '🟢 已完成' : '🔴 未完成'}</div>
         </div>
         <div class="modal-item">
-          <div class="modal-item-label">MyPal 第一階段 (09/18 09:00 前)</div>
+          <div class="modal-item-label">MyPal 第一階段 iPhone (09/18 09:00 前)</div>
           <div class="modal-item-value">${isMyPal1 ? '🟢 已完成' : '🔴 未完成'}</div>
         </div>
         <div class="modal-item">
-          <div class="modal-item-label">MyPal 第二階段 (09/24 23:59 前)</div>
+          <div class="modal-item-label">MyPal 第二階段 Apple Watch (09/24 23:59 前)</div>
           <div class="modal-item-value">${isMyPal2 ? '🟢 已完成' : '🔴 未完成'}</div>
         </div>
         <div class="modal-item" style="grid-column: span 2;">
+          <div class="modal-item-label">MyPal 獲得 13 週完成獎勵</div>
+          <div class="modal-item-value">${isReward ? '🟢 已獲得獎勵' : '🔴 未獲得'}</div>
+        </div>
+        <div class="modal-item" style="grid-column: span 2;">
           <div class="modal-item-label">個人任務達成進度</div>
-          <div class="modal-item-value" style="color:#2563eb; font-size:1.05rem; font-weight:700;">
-            已完成 ${doneCount} / ${totalTasks} 項 (${percent}%)
+          <div class="modal-item-value" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+            <span style="color:${doneCount === totalTasks ? '#10b981' : '#2563eb'}; font-size:1.05rem; font-weight:700;">已完成 ${doneCount} / ${totalTasks} 項 (${percent}%)</span>
+          </div>
+          <div style="background:#e2e8f0; border-radius:999px; height:8px; width:100%; overflow:hidden;">
+            <div style="background:${doneCount === totalTasks ? '#10b981' : '#2563eb'}; height:100%; width:${percent}%; transition:width 0.3s ease;"></div>
           </div>
         </div>
       `;
