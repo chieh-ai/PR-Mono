@@ -747,7 +747,7 @@
         <div class="stat-pill" id="pill-ignite">Ignite十月: <strong id="stat-ignite">0</strong> 人</div>
         <div class="stat-pill" id="pill-reward">13週獎勵: <strong id="stat-reward">0</strong> 人</div>
         <div class="stat-pill" id="pill-mypal1">MyPal一階: <strong id="stat-mypal1">0</strong> 人</div>
-        <div class="stat-pill" id="pill-master">iPhone達人講: <strong id="stat-master">0</strong> 人</div>
+        <div class="stat-pill" id="pill-master">iPhone達人獎: <strong id="stat-master">0</strong> 人</div>
         <div class="stat-pill" id="pill-mypal2">MyPal二階: <strong id="stat-mypal2">0</strong> 人</div>
         <div class="stat-pill" id="pill-finish">完賽獎: <strong id="stat-finish">0</strong> 人</div>
         <button class="logout-btn" onclick="handleLogout()" title="登出並鎖定系統">🔒 登出</button>
@@ -764,16 +764,19 @@
           </select>
           <select id="filter-status" class="select-input" onchange="renderTable()">
             <option value="">所有人員狀態</option>
-            <option value="all-done-4">目前進度達標者 (4項全達標 - 27人)</option>
+            <option value="all-done-8">全部 8 項全達標者 (13人)</option>
+            <option value="salescoach-done">Sales Coach (九月成績) 已完成 (13人)</option>
+            <option value="salescoach-pending">Sales Coach (九月成績) 未完成 (21人)</option>
+            <option value="ignite-done">Ignite 每月任務 (十月) 已完成 (15人)</option>
+            <option value="ignite-pending">Ignite 每月任務 (十月) 未完成 (19人)</option>
+            <option value="master-done">iPhone 達人獎已獲得 (32人)</option>
+            <option value="master-pending">iPhone 達人獎未獲得 (2人)</option>
             <option value="reward-done">獲得 13 週獎勵者 (27人)</option>
             <option value="reward-pending">未獲 13 週獎勵者 (7人)</option>
             <option value="mypal1-done">MyPal一階(iPhone)已完成 (34人 - 全員達標)</option>
             <option value="mypal2-done">MyPal二階(Watch)已完成 (34人 - 全員達標)</option>
+            <option value="finish-done">完賽獎已獲得 (34人 - 全員達標)</option>
             <option value="profile-done">個人資料已更新 (34人 - 全員達標)</option>
-            <option value="salescoach-pending">Sales Coach (九月成績) 待發佈 (34人)</option>
-            <option value="ignite-pending">Ignite 每月任務 (十月) 未完成 (34人)</option>
-            <option value="master-pending">iPhone 達人講未完成 (34人)</option>
-            <option value="finish-pending">完賽獎未獲得 (34人)</option>
           </select>
         </div>
       </div>
@@ -827,10 +830,10 @@
             <th class="sub-header-label">九月成績</th>
             <th class="sub-header-label">十月</th>
             <th class="sub-header-label">獲得 13 週<br>完成獎勵</th>
-            <th class="sub-header-label">第一階段 iPhone<br>09/18 09:00 前</th>
-            <th class="sub-header-label">iPhone 達人講</th>
-            <th class="sub-header-label">第二階段 Apple Watch<br>09/24 23:59 前</th>
-            <th class="sub-header-label">完賽獎</th>
+            <th class="sub-header-label">第一階段 iPhone</th>
+            <th class="sub-header-label">iPhone 達人獎<br>09/18 09:00 前</th>
+            <th class="sub-header-label">第二階段 Apple Watch</th>
+            <th class="sub-header-label">完賽獎<br>09/24 23:59 前</th>
           </tr>
         </thead>
         <tbody id="table-body">
@@ -907,40 +910,40 @@
 
     // Embedded Complete Dataset from Updated CSV (10/02 Revision)
     const rawData = [
-      { id: 1, dealer: "秉皇科技有限公司", store: "A#SHOP 新北鶯歌店", name: "楊旻軒", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "V", mypalPhase1: "V", mypalMaster: "", mypalPhase2: "V", mypalFinish: "" },
-      { id: 2, dealer: "秉皇科技有限公司", store: "A#SHOP 新北鶯歌店", name: "郭文昌", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "V", mypalPhase1: "V", mypalMaster: "", mypalPhase2: "V", mypalFinish: "" },
-      { id: 3, dealer: "秉皇科技有限公司", store: "A#SHOP 新北鶯歌店", name: "邱珮瑋", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "V", mypalPhase1: "V", mypalMaster: "", mypalPhase2: "V", mypalFinish: "" },
-      { id: 4, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化市店", name: "李昀芳", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "", mypalPhase1: "V", mypalMaster: "", mypalPhase2: "V", mypalFinish: "" },
-      { id: 5, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化市店", name: "胡雅恩", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "V", mypalPhase1: "V", mypalMaster: "", mypalPhase2: "V", mypalFinish: "" },
-      { id: 6, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化市店", name: "宋榮輝", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "V", mypalPhase1: "V", mypalMaster: "", mypalPhase2: "V", mypalFinish: "" },
-      { id: 7, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化市店", name: "吳宜庭", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "V", mypalPhase1: "V", mypalMaster: "", mypalPhase2: "V", mypalFinish: "" },
-      { id: 8, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化鹿港店", name: "楊琹伊", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "V", mypalPhase1: "V", mypalMaster: "", mypalPhase2: "V", mypalFinish: "" },
-      { id: 9, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化鹿港店", name: "沈思妤", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "V", mypalPhase1: "V", mypalMaster: "", mypalPhase2: "V", mypalFinish: "" },
-      { id: 10, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化鹿港店", name: "李政儒", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "V", mypalPhase1: "V", mypalMaster: "", mypalPhase2: "V", mypalFinish: "" },
-      { id: 11, dealer: "秉皇科技有限公司", store: "A#SHOP新北市土城店", name: "翁湘庭", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "V", mypalPhase1: "V", mypalMaster: "", mypalPhase2: "V", mypalFinish: "" },
-      { id: 12, dealer: "秉皇科技有限公司", store: "A#SHOP新北市土城店", name: "李智豪", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "V", mypalPhase1: "V", mypalMaster: "", mypalPhase2: "V", mypalFinish: "" },
-      { id: 13, dealer: "秉皇科技有限公司", store: "A#SHOP新北市土城店", name: "柯宛汝", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "V", mypalPhase1: "V", mypalMaster: "", mypalPhase2: "V", mypalFinish: "" },
-      { id: 14, dealer: "秉皇科技有限公司", store: "A#SHOP新北市土城店", name: "林芳蕾", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "V", mypalPhase1: "V", mypalMaster: "", mypalPhase2: "V", mypalFinish: "" },
-      { id: 15, dealer: "宏驜有限公司", store: "LIFONE 花蓮遠東百貨店", name: "朱莉慈", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "V", mypalPhase1: "V", mypalMaster: "", mypalPhase2: "V", mypalFinish: "" },
-      { id: 16, dealer: "宏驜有限公司", store: "LIFONE 花蓮遠東百貨店", name: "劉懿萱", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "V", mypalPhase1: "V", mypalMaster: "", mypalPhase2: "V", mypalFinish: "" },
-      { id: 17, dealer: "宏驜有限公司", store: "LIFONE 花蓮遠東百貨店", name: "李宜諪", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "V", mypalPhase1: "V", mypalMaster: "", mypalPhase2: "V", mypalFinish: "" },
-      { id: 18, dealer: "一七二有限公司", store: "STAMINA 新竹竹東店", name: "徐佳萱", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "V", mypalPhase1: "V", mypalMaster: "", mypalPhase2: "V", mypalFinish: "" },
-      { id: 19, dealer: "一七二有限公司", store: "STAMINA 新竹竹東店", name: "陳瑞滿", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "V", mypalPhase1: "V", mypalMaster: "", mypalPhase2: "V", mypalFinish: "" },
-      { id: 20, dealer: "一七二有限公司", store: "STAMINA 新竹竹東店", name: "陳若庭", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "V", mypalPhase1: "V", mypalMaster: "", mypalPhase2: "V", mypalFinish: "" },
-      { id: 21, dealer: "富鴻數位有限公司", store: "手機王數位 雲林虎尾店", name: "王宥菁", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "", mypalPhase1: "V", mypalMaster: "", mypalPhase2: "V", mypalFinish: "" },
-      { id: 22, dealer: "富鴻數位有限公司", store: "手機王數位 雲林虎尾店", name: "蘇韋安", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "", mypalPhase1: "V", mypalMaster: "", mypalPhase2: "V", mypalFinish: "" },
-      { id: 23, dealer: "富鴻數位有限公司", store: "手機王數位 雲林虎尾店", name: "楊孝祖", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "V", mypalPhase1: "V", mypalMaster: "", mypalPhase2: "V", mypalFinish: "" },
-      { id: 24, dealer: "富鴻數位有限公司", store: "手機王數位 雲林虎尾店", name: "曾芊育", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "", mypalPhase1: "V", mypalMaster: "", mypalPhase2: "V", mypalFinish: "" },
-      { id: 25, dealer: "富鴻數位有限公司", store: "手機王數位雲林斗六店", name: "雲德睿", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "", mypalPhase1: "V", mypalMaster: "", mypalPhase2: "V", mypalFinish: "" },
-      { id: 26, dealer: "富鴻數位有限公司", store: "手機王數位雲林斗六店", name: "黃雅紋", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "", mypalPhase1: "V", mypalMaster: "", mypalPhase2: "V", mypalFinish: "" },
-      { id: 27, dealer: "鑫旺樹企業有限公司", store: "飛訊部落 嘉義朴子店", name: "吳欣儒", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "V", mypalPhase1: "V", mypalMaster: "", mypalPhase2: "V", mypalFinish: "" },
-      { id: 28, dealer: "鑫旺樹企業有限公司", store: "飛訊部落 嘉義朴子店", name: "林靜雯", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "V", mypalPhase1: "V", mypalMaster: "", mypalPhase2: "V", mypalFinish: "" },
-      { id: 29, dealer: "鑫旺樹企業有限公司", store: "飛訊部落台南新營店", name: "顏麗雯", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "V", mypalPhase1: "V", mypalMaster: "", mypalPhase2: "V", mypalFinish: "" },
-      { id: 30, dealer: "鑫旺樹企業有限公司", store: "飛訊部落台南新營店", name: "蔡幸娟", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "V", mypalPhase1: "V", mypalMaster: "", mypalPhase2: "V", mypalFinish: "" },
-      { id: 31, dealer: "鑫旺樹企業有限公司", store: "飛訊部落台南新營店", name: "吳嫚慈", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "V", mypalPhase1: "V", mypalMaster: "", mypalPhase2: "V", mypalFinish: "" },
-      { id: 32, dealer: "優銳資訊有限公司", store: "暐固科技台東店", name: "郭峻瑋", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "V", mypalPhase1: "V", mypalMaster: "", mypalPhase2: "V", mypalFinish: "" },
-      { id: 33, dealer: "優銳資訊有限公司", store: "暐固科技台東店", name: "蔡舒蕎", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "V", mypalPhase1: "V", mypalMaster: "", mypalPhase2: "V", mypalFinish: "" },
-      { id: 34, dealer: "優銳資訊有限公司", store: "暐固科技台東店", name: "吳思慧", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "", mypalPhase1: "V", mypalMaster: "", mypalPhase2: "V", mypalFinish: "" }
+      { id: 1, dealer: "秉皇科技有限公司", store: "A#SHOP 新北鶯歌店", name: "楊旻軒", profile: "V", salesCoach: "V", igniteOct: "V", mypalReward: "V", mypalPhase1: "V", mypalMaster: "V", mypalPhase2: "V", mypalFinish: "V" },
+      { id: 2, dealer: "秉皇科技有限公司", store: "A#SHOP 新北鶯歌店", name: "郭文昌", profile: "V", salesCoach: "V", igniteOct: "V", mypalReward: "V", mypalPhase1: "V", mypalMaster: "V", mypalPhase2: "V", mypalFinish: "V" },
+      { id: 3, dealer: "秉皇科技有限公司", store: "A#SHOP 新北鶯歌店", name: "邱珮瑋", profile: "V", salesCoach: "V", igniteOct: "V", mypalReward: "V", mypalPhase1: "V", mypalMaster: "V", mypalPhase2: "V", mypalFinish: "V" },
+      { id: 4, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化市店", name: "李昀芳", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "", mypalPhase1: "V", mypalMaster: "V", mypalPhase2: "V", mypalFinish: "V" },
+      { id: 5, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化市店", name: "胡雅恩", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "V", mypalPhase1: "V", mypalMaster: "V", mypalPhase2: "V", mypalFinish: "V" },
+      { id: 6, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化市店", name: "宋榮輝", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "V", mypalPhase1: "V", mypalMaster: "V", mypalPhase2: "V", mypalFinish: "V" },
+      { id: 7, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化市店", name: "吳宜庭", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "V", mypalPhase1: "V", mypalMaster: "V", mypalPhase2: "V", mypalFinish: "V" },
+      { id: 8, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化鹿港店", name: "楊琹伊", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "V", mypalPhase1: "V", mypalMaster: "V", mypalPhase2: "V", mypalFinish: "V" },
+      { id: 9, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化鹿港店", name: "沈思妤", profile: "V", salesCoach: "V", igniteOct: "V", mypalReward: "V", mypalPhase1: "V", mypalMaster: "V", mypalPhase2: "V", mypalFinish: "V" },
+      { id: 10, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化鹿港店", name: "李政儒", profile: "V", salesCoach: "V", igniteOct: "V", mypalReward: "V", mypalPhase1: "V", mypalMaster: "V", mypalPhase2: "V", mypalFinish: "V" },
+      { id: 11, dealer: "秉皇科技有限公司", store: "A#SHOP新北市土城店", name: "翁湘庭", profile: "V", salesCoach: "V", igniteOct: "V", mypalReward: "V", mypalPhase1: "V", mypalMaster: "V", mypalPhase2: "V", mypalFinish: "V" },
+      { id: 12, dealer: "秉皇科技有限公司", store: "A#SHOP新北市土城店", name: "李智豪", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "V", mypalPhase1: "V", mypalMaster: "V", mypalPhase2: "V", mypalFinish: "V" },
+      { id: 13, dealer: "秉皇科技有限公司", store: "A#SHOP新北市土城店", name: "柯宛汝", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "V", mypalPhase1: "V", mypalMaster: "V", mypalPhase2: "V", mypalFinish: "V" },
+      { id: 14, dealer: "秉皇科技有限公司", store: "A#SHOP新北市土城店", name: "林芳蕾", profile: "V", salesCoach: "V", igniteOct: "V", mypalReward: "V", mypalPhase1: "V", mypalMaster: "V", mypalPhase2: "V", mypalFinish: "V" },
+      { id: 15, dealer: "宏驜有限公司", store: "LIFONE 花蓮遠東百貨店", name: "朱莉慈", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "V", mypalPhase1: "V", mypalMaster: "V", mypalPhase2: "V", mypalFinish: "V" },
+      { id: 16, dealer: "宏驜有限公司", store: "LIFONE 花蓮遠東百貨店", name: "劉懿萱", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "V", mypalPhase1: "V", mypalMaster: "V", mypalPhase2: "V", mypalFinish: "V" },
+      { id: 17, dealer: "宏驜有限公司", store: "LIFONE 花蓮遠東百貨店", name: "李宜諪", profile: "V", salesCoach: "", igniteOct: "V", mypalReward: "V", mypalPhase1: "V", mypalMaster: "V", mypalPhase2: "V", mypalFinish: "V" },
+      { id: 18, dealer: "一七二有限公司", store: "STAMINA 新竹竹東店", name: "徐佳萱", profile: "V", salesCoach: "V", igniteOct: "V", mypalReward: "V", mypalPhase1: "V", mypalMaster: "V", mypalPhase2: "V", mypalFinish: "V" },
+      { id: 19, dealer: "一七二有限公司", store: "STAMINA 新竹竹東店", name: "陳瑞滿", profile: "V", salesCoach: "V", igniteOct: "V", mypalReward: "V", mypalPhase1: "V", mypalMaster: "V", mypalPhase2: "V", mypalFinish: "V" },
+      { id: 20, dealer: "一七二有限公司", store: "STAMINA 新竹竹東店", name: "陳若庭", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "V", mypalPhase1: "V", mypalMaster: "", mypalPhase2: "V", mypalFinish: "V" },
+      { id: 21, dealer: "富鴻數位有限公司", store: "手機王數位 雲林虎尾店", name: "王宥菁", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "", mypalPhase1: "V", mypalMaster: "V", mypalPhase2: "V", mypalFinish: "V" },
+      { id: 22, dealer: "富鴻數位有限公司", store: "手機王數位 雲林虎尾店", name: "蘇韋安", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "", mypalPhase1: "V", mypalMaster: "V", mypalPhase2: "V", mypalFinish: "V" },
+      { id: 23, dealer: "富鴻數位有限公司", store: "手機王數位 雲林虎尾店", name: "楊孝祖", profile: "V", salesCoach: "V", igniteOct: "V", mypalReward: "V", mypalPhase1: "V", mypalMaster: "V", mypalPhase2: "V", mypalFinish: "V" },
+      { id: 24, dealer: "富鴻數位有限公司", store: "手機王數位 雲林虎尾店", name: "曾芊育", profile: "V", salesCoach: "", igniteOct: "V", mypalReward: "", mypalPhase1: "V", mypalMaster: "V", mypalPhase2: "V", mypalFinish: "V" },
+      { id: 25, dealer: "富鴻數位有限公司", store: "手機王數位雲林斗六店", name: "雲德睿", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "", mypalPhase1: "V", mypalMaster: "V", mypalPhase2: "V", mypalFinish: "V" },
+      { id: 26, dealer: "富鴻數位有限公司", store: "手機王數位雲林斗六店", name: "黃雅紋", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "", mypalPhase1: "V", mypalMaster: "V", mypalPhase2: "V", mypalFinish: "V" },
+      { id: 27, dealer: "鑫旺樹企業有限公司", store: "飛訊部落 嘉義朴子店", name: "吳欣儒", profile: "V", salesCoach: "V", igniteOct: "V", mypalReward: "V", mypalPhase1: "V", mypalMaster: "V", mypalPhase2: "V", mypalFinish: "V" },
+      { id: 28, dealer: "鑫旺樹企業有限公司", store: "飛訊部落 嘉義朴子店", name: "林靜雯", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "V", mypalPhase1: "V", mypalMaster: "V", mypalPhase2: "V", mypalFinish: "V" },
+      { id: 29, dealer: "鑫旺樹企業有限公司", store: "飛訊部落台南新營店", name: "顏麗雯", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "V", mypalPhase1: "V", mypalMaster: "V", mypalPhase2: "V", mypalFinish: "V" },
+      { id: 30, dealer: "鑫旺樹企業有限公司", store: "飛訊部落台南新營店", name: "蔡幸娟", profile: "V", salesCoach: "V", igniteOct: "V", mypalReward: "V", mypalPhase1: "V", mypalMaster: "V", mypalPhase2: "V", mypalFinish: "V" },
+      { id: 31, dealer: "鑫旺樹企業有限公司", store: "飛訊部落台南新營店", name: "吳嫚慈", profile: "V", salesCoach: "V", igniteOct: "V", mypalReward: "V", mypalPhase1: "V", mypalMaster: "V", mypalPhase2: "V", mypalFinish: "V" },
+      { id: 32, dealer: "優銳資訊有限公司", store: "暐固科技台東店", name: "郭峻瑋", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "V", mypalPhase1: "V", mypalMaster: "", mypalPhase2: "V", mypalFinish: "V" },
+      { id: 33, dealer: "優銳資訊有限公司", store: "暐固科技台東店", name: "蔡舒蕎", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "V", mypalPhase1: "V", mypalMaster: "V", mypalPhase2: "V", mypalFinish: "V" },
+      { id: 34, dealer: "優銳資訊有限公司", store: "暐固科技台東店", name: "吳思慧", profile: "V", salesCoach: "", igniteOct: "", mypalReward: "", mypalPhase1: "V", mypalMaster: "V", mypalPhase2: "V", mypalFinish: "V" }
     ];
 
     // Initialize Store Filter Dropdown
@@ -1003,7 +1006,9 @@
         const isMyPal2Done = item.mypalPhase2 && item.mypalPhase2.trim().toUpperCase() === 'V';
         const isFinishDone = item.mypalFinish && item.mypalFinish.trim().toUpperCase() === 'V';
 
-        if (selectedStatus === 'all-done-4') {
+        if (selectedStatus === 'all-done-8') {
+          matchStatus = isProfileDone && isSCDone && isIgniteDone && isRewardDone && isMyPal1Done && isMasterDone && isMyPal2Done && isFinishDone;
+        } else if (selectedStatus === 'all-done-4') {
           matchStatus = isRewardDone && isMyPal1Done && isMyPal2Done && isProfileDone;
         } else if (selectedStatus === 'reward-done') {
           matchStatus = isRewardDone;
@@ -1157,19 +1162,19 @@
           <div class="modal-item-value">${isReward ? '🟢 已獲得獎勵' : '🔴 未獲得'}</div>
         </div>
         <div class="modal-item">
-          <div class="modal-item-label">MyPal 第一階段 iPhone (09/18 09:00 前)</div>
+          <div class="modal-item-label">MyPal 第一階段 iPhone</div>
           <div class="modal-item-value">${isMyPal1 ? '🟢 已完成' : '🔴 未完成'}</div>
         </div>
         <div class="modal-item">
-          <div class="modal-item-label">MyPal iPhone 達人講</div>
+          <div class="modal-item-label">MyPal iPhone 達人獎 (09/18 09:00 前)</div>
           <div class="modal-item-value">${isMaster ? '🟢 已完成' : '🔴 未完成'}</div>
         </div>
         <div class="modal-item">
-          <div class="modal-item-label">MyPal 第二階段 Apple Watch (09/24 23:59 前)</div>
+          <div class="modal-item-label">MyPal 第二階段 Apple Watch</div>
           <div class="modal-item-value">${isMyPal2 ? '🟢 已完成' : '🔴 未完成'}</div>
         </div>
         <div class="modal-item">
-          <div class="modal-item-label">MyPal 完賽獎</div>
+          <div class="modal-item-label">MyPal 完賽獎 (09/24 23:59 前)</div>
           <div class="modal-item-value">${isFinish ? '🟢 已獲得' : '🔴 未獲得'}</div>
         </div>
         <div class="modal-item" style="grid-column: span 2;">
