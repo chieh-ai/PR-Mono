@@ -784,11 +784,11 @@
         
         <div class="legend-item" title="已完成">
           <span class="legend-dot green"></span>
-          <span>已完成 / 已獲得</span>
+          <span>已完成</span>
         </div>
         <div class="legend-item" title="未完成">
           <span class="legend-dot red"></span>
-          <span>未完成 / 未獲得</span>
+          <span>未完成</span>
         </div>
       </div>
     </section>
@@ -965,16 +965,16 @@
       if (val && val.trim() !== '') {
         const upper = val.trim().toUpperCase();
         if (upper === 'V' || upper === 'Y') {
-          return `<span class="light-indicator pure-dot light-green" title="已完成 / 已獲得">
+          return `<span class="light-indicator pure-dot light-green" title="已完成">
                     <span class="dot"></span>
                   </span>`;
         } else {
-          return `<span class="light-indicator pure-dot light-red" title="未完成 / 未獲得">
+          return `<span class="light-indicator pure-dot light-red" title="未完成">
                     <span class="dot"></span>
                   </span>`;
         }
       } else {
-        return `<span class="light-indicator pure-dot light-red" title="未完成 / 未獲得">
+        return `<span class="light-indicator pure-dot light-red" title="未完成">
                   <span class="dot"></span>
                 </span>`;
       }
