@@ -771,13 +771,13 @@
             <option value="">所有人員狀態</option>
             <option value="current-all-done">目前進度全達標者 (含WK2) (13人)</option>
             <option value="wk2-done">WK2 已完成 (13人)</option>
-            <option value="wk2-pending">WK2 未完成 (20人)</option>
+            <option value="wk2-pending">WK2 未完成 (21人)</option>
             <option value="wk1-done">WK1 已完成 (32人)</option>
-            <option value="wk1-pending">WK1 未完成 (1人)</option>
+            <option value="wk1-pending">WK1 未完成 (2人)</option>
             <option value="ignite-done">Ignite 每月任務 (十月) 已完成 (32人)</option>
-            <option value="ignite-pending">Ignite 每月任務 (十月) 未完成 (1人)</option>
+            <option value="ignite-pending">Ignite 每月任務 (十月) 未完成 (2人)</option>
             <option value="profile-done">個人資料已更新 (32人)</option>
-            <option value="profile-pending">個人資料未更新 (1人)</option>
+            <option value="profile-pending">個人資料未更新 (2人)</option>
             <option value="all-wk-done">11 週挑戰賽全達標者 (0人)</option>
           </select>
         </div>
@@ -914,7 +914,7 @@
       input.type = input.type === 'password' ? 'text' : 'password';
     }
 
-    // Embedded Complete Dataset from Updated CSV (10/18 20:50 Revision - FY27Q1 11週挑戰賽)
+    // Embedded Complete Dataset from Updated CSV (10/19 Revision - FY27Q1 11週挑戰賽)
     const rawData = [
       { id: 1, dealer: "秉皇科技有限公司", store: "A#SHOP 新北鶯歌店", name: "楊旻軒", profile: "V", igniteOct: "V", wk1: "V", wk2: "", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
       { id: 2, dealer: "秉皇科技有限公司", store: "A#SHOP 新北鶯歌店", name: "郭文昌", profile: "V", igniteOct: "V", wk1: "V", wk2: "", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
@@ -936,19 +936,20 @@
       { id: 18, dealer: "一七二有限公司", store: "STAMINA 新竹竹東店", name: "徐佳萱", profile: "V", igniteOct: "V", wk1: "V", wk2: "", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
       { id: 19, dealer: "一七二有限公司", store: "STAMINA 新竹竹東店", name: "陳若庭", profile: "V", igniteOct: "V", wk1: "V", wk2: "", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
       { id: 20, dealer: "一七二有限公司", store: "STAMINA 新竹竹東店", name: "王妤恩", profile: "", igniteOct: "", wk1: "", wk2: "", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
-      { id: 21, dealer: "富鴻數位有限公司", store: "手機王數位 雲林虎尾店", name: "蘇韋安", profile: "V", igniteOct: "V", wk1: "V", wk2: "", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
-      { id: 22, dealer: "富鴻數位有限公司", store: "手機王數位 雲林虎尾店", name: "楊孝祖", profile: "V", igniteOct: "V", wk1: "V", wk2: "", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
-      { id: 23, dealer: "富鴻數位有限公司", store: "手機王數位 雲林虎尾店", name: "曾芊育", profile: "V", igniteOct: "V", wk1: "V", wk2: "", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
-      { id: 24, dealer: "富鴻數位有限公司", store: "手機王數位雲林斗六店", name: "雲德睿", profile: "V", igniteOct: "V", wk1: "V", wk2: "", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
-      { id: 25, dealer: "富鴻數位有限公司", store: "手機王數位雲林斗六店", name: "黃雅紋", profile: "V", igniteOct: "V", wk1: "V", wk2: "", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
-      { id: 26, dealer: "鑫旺樹企業有限公司", store: "飛訊部落 嘉義朴子店", name: "吳欣儒", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
-      { id: 27, dealer: "鑫旺樹企業有限公司", store: "飛訊部落 嘉義朴子店", name: "林靜雯", profile: "V", igniteOct: "V", wk1: "V", wk2: "", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
-      { id: 28, dealer: "鑫旺樹企業有限公司", store: "飛訊部落台南新營店", name: "顏麗雯", profile: "V", igniteOct: "V", wk1: "V", wk2: "", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
-      { id: 29, dealer: "鑫旺樹企業有限公司", store: "飛訊部落台南新營店", name: "蔡幸娟", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
-      { id: 30, dealer: "鑫旺樹企業有限公司", store: "飛訊部落台南新營店", name: "吳嫚慈", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
-      { id: 31, dealer: "優銳資訊有限公司", store: "暐固科技台東店", name: "郭峻瑋", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
-      { id: 32, dealer: "優銳資訊有限公司", store: "暐固科技台東店", name: "蔡舒蕎", profile: "V", igniteOct: "V", wk1: "V", wk2: "", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
-      { id: 33, dealer: "優銳資訊有限公司", store: "暐固科技台東店", name: "吳思慧", profile: "V", igniteOct: "V", wk1: "V", wk2: "", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" }
+      { id: 21, dealer: "一七二有限公司", store: "STAMINA 新竹竹東店", name: "涂佳榆", profile: "", igniteOct: "", wk1: "", wk2: "", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
+      { id: 22, dealer: "富鴻數位有限公司", store: "手機王數位 雲林虎尾店", name: "蘇韋安", profile: "V", igniteOct: "V", wk1: "V", wk2: "", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
+      { id: 23, dealer: "富鴻數位有限公司", store: "手機王數位 雲林虎尾店", name: "楊孝祖", profile: "V", igniteOct: "V", wk1: "V", wk2: "", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
+      { id: 24, dealer: "富鴻數位有限公司", store: "手機王數位 雲林虎尾店", name: "曾芊育", profile: "V", igniteOct: "V", wk1: "V", wk2: "", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
+      { id: 25, dealer: "富鴻數位有限公司", store: "手機王數位雲林斗六店", name: "雲德睿", profile: "V", igniteOct: "V", wk1: "V", wk2: "", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
+      { id: 26, dealer: "富鴻數位有限公司", store: "手機王數位雲林斗六店", name: "黃雅紋", profile: "V", igniteOct: "V", wk1: "V", wk2: "", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
+      { id: 27, dealer: "鑫旺樹企業有限公司", store: "飛訊部落 嘉義朴子店", name: "吳欣儒", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
+      { id: 28, dealer: "鑫旺樹企業有限公司", store: "飛訊部落 嘉義朴子店", name: "林靜雯", profile: "V", igniteOct: "V", wk1: "V", wk2: "", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
+      { id: 29, dealer: "鑫旺樹企業有限公司", store: "飛訊部落台南新營店", name: "顏麗雯", profile: "V", igniteOct: "V", wk1: "V", wk2: "", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
+      { id: 30, dealer: "鑫旺樹企業有限公司", store: "飛訊部落台南新營店", name: "蔡幸娟", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
+      { id: 31, dealer: "鑫旺樹企業有限公司", store: "飛訊部落台南新營店", name: "吳嫚慈", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
+      { id: 32, dealer: "優銳資訊有限公司", store: "暐固科技台東店", name: "郭峻瑋", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
+      { id: 33, dealer: "優銳資訊有限公司", store: "暐固科技台東店", name: "蔡舒蕎", profile: "V", igniteOct: "V", wk1: "V", wk2: "", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
+      { id: 34, dealer: "優銳資訊有限公司", store: "暐固科技台東店", name: "吳思慧", profile: "V", igniteOct: "V", wk1: "V", wk2: "", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" }
     ];
 
     // Initialize Store Filter Dropdown
