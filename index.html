@@ -744,6 +744,7 @@
         <div class="stat-pill">追蹤人員: <strong id="stat-people">0</strong> 人</div>
         <div class="stat-pill" id="pill-profile">個資更新: <strong id="stat-profile">0</strong> 人</div>
         <div class="stat-pill" id="pill-ignite">Ignite十月: <strong id="stat-ignite">0</strong> 人</div>
+        <div class="stat-pill" id="pill-ignite-activity">限時活動: <strong id="stat-ignite-activity">0</strong> 人</div>
         <div class="stat-pill" id="pill-wk1">WK1: <strong id="stat-wk1">0</strong> 人</div>
         <div class="stat-pill" id="pill-wk2">WK2: <strong id="stat-wk2">0</strong> 人</div>
         <div class="stat-pill" id="pill-wk3">WK3: <strong id="stat-wk3">0</strong> 人</div>
@@ -769,13 +770,17 @@
           </select>
           <select id="filter-status" class="select-input" onchange="renderTable()">
             <option value="">所有人員狀態</option>
-            <option value="current-all-done">目前進度全達標者 (含WK2) (26人)</option>
-            <option value="wk2-done">WK2 已完成 (26人)</option>
-            <option value="wk2-pending">WK2 未完成 (8人)</option>
-            <option value="wk1-done">WK1 已完成 (32人)</option>
+            <option value="current-all-done">目前進度全達標者 (含WK3) (14人)</option>
+            <option value="wk3-done">WK3 已完成 (14人)</option>
+            <option value="wk3-pending">WK3 未完成 (19人)</option>
+            <option value="wk2-done">WK2 已完成 (31人)</option>
+            <option value="wk2-pending">WK2 未完成 (2人)</option>
+            <option value="wk1-done">WK1 已完成 (31人)</option>
             <option value="wk1-pending">WK1 未完成 (2人)</option>
-            <option value="ignite-done">Ignite 每月任務 (十月) 已完成 (34人 - 全員達標)</option>
-            <option value="profile-done">個人資料已更新 (32人)</option>
+            <option value="ignite-done">Ignite 每月任務 (十月) 已完成 (33人 - 全員達標)</option>
+            <option value="ignite-activity-done">Ignite 限時活動 (十月) 已完成 (2人)</option>
+            <option value="ignite-activity-pending">Ignite 限時活動 (十月) 未完成 (31人)</option>
+            <option value="profile-done">個人資料已更新 (31人)</option>
             <option value="profile-pending">個人資料未更新 (2人)</option>
             <option value="all-wk-done">11 週挑戰賽全達標者 (0人)</option>
           </select>
@@ -809,6 +814,7 @@
             <th>更新<br>個人資料</th>
             <th>Ignite<br>每月任務</th>
             <th colspan="11" class="mypal-header">MyPal FY27Q1 11 週挑戰賽</th>
+            <th>Ignite<br>限時活動</th>
           </tr>
           <!-- Header Row 2 -->
           <tr>
@@ -839,6 +845,7 @@
             <th class="sub-header-label">WK9</th>
             <th class="sub-header-label">WK10</th>
             <th class="sub-header-label">WK11</th>
+            <th class="sub-header-label">十月</th>
           </tr>
         </thead>
         <tbody id="table-body">
@@ -913,42 +920,41 @@
       input.type = input.type === 'password' ? 'text' : 'password';
     }
 
-    // Embedded Complete Dataset from Updated CSV (10/24 Revision - FY27Q1 11週挑戰賽)
+    // Embedded Complete Dataset from Updated CSV (10/27 Revision - FY27Q1 11週挑戰賽 & Ignite 限時活動)
     const rawData = [
-      { id: 1, dealer: "秉皇科技有限公司", store: "A#SHOP 新北鶯歌店", name: "楊旻軒", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
-      { id: 2, dealer: "秉皇科技有限公司", store: "A#SHOP 新北鶯歌店", name: "郭文昌", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
-      { id: 3, dealer: "秉皇科技有限公司", store: "A#SHOP 新北鶯歌店", name: "邱珮瑋", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
-      { id: 4, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化市店", name: "李昀芳", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
-      { id: 5, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化市店", name: "胡雅恩", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
-      { id: 6, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化市店", name: "宋榮輝", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
-      { id: 7, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化市店", name: "吳宜庭", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
-      { id: 8, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化鹿港店", name: "楊琹伊", profile: "V", igniteOct: "V", wk1: "V", wk2: "", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
-      { id: 9, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化鹿港店", name: "沈思妤", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
-      { id: 10, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化鹿港店", name: "李政儒", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
-      { id: 11, dealer: "秉皇科技有限公司", store: "A#SHOP新北市土城店", name: "翁湘庭", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
-      { id: 12, dealer: "秉皇科技有限公司", store: "A#SHOP新北市土城店", name: "李智豪", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
-      { id: 13, dealer: "秉皇科技有限公司", store: "A#SHOP新北市土城店", name: "柯宛汝", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
-      { id: 14, dealer: "秉皇科技有限公司", store: "A#SHOP新北市土城店", name: "林芳蕾", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
-      { id: 15, dealer: "宏驜有限公司", store: "LIFONE 花蓮遠東百貨店", name: "朱莉慈", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
-      { id: 16, dealer: "宏驜有限公司", store: "LIFONE 花蓮遠東百貨店", name: "劉懿萱", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
-      { id: 17, dealer: "宏驜有限公司", store: "LIFONE 花蓮遠東百貨店", name: "李宜諪", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
-      { id: 18, dealer: "一七二有限公司", store: "STAMINA 新竹竹東店", name: "徐佳萱", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
-      { id: 19, dealer: "一七二有限公司", store: "STAMINA 新竹竹東店", name: "陳若庭", profile: "V", igniteOct: "V", wk1: "V", wk2: "", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
-      { id: 20, dealer: "一七二有限公司", store: "STAMINA 新竹竹東店", name: "王妤恩", profile: "", igniteOct: "V", wk1: "", wk2: "", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
-      { id: 21, dealer: "一七二有限公司", store: "STAMINA 新竹竹東店", name: "涂佳榆", profile: "", igniteOct: "V", wk1: "", wk2: "", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
-      { id: 22, dealer: "富鴻數位有限公司", store: "手機王數位 雲林虎尾店", name: "蘇韋安", profile: "V", igniteOct: "V", wk1: "V", wk2: "", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
-      { id: 23, dealer: "富鴻數位有限公司", store: "手機王數位 雲林虎尾店", name: "楊孝祖", profile: "V", igniteOct: "V", wk1: "V", wk2: "", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
-      { id: 24, dealer: "富鴻數位有限公司", store: "手機王數位 雲林虎尾店", name: "曾芊育", profile: "V", igniteOct: "V", wk1: "V", wk2: "", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
-      { id: 25, dealer: "富鴻數位有限公司", store: "手機王數位雲林斗六店", name: "雲德睿", profile: "V", igniteOct: "V", wk1: "V", wk2: "", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
-      { id: 26, dealer: "富鴻數位有限公司", store: "手機王數位雲林斗六店", name: "黃雅紋", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
-      { id: 27, dealer: "鑫旺樹企業有限公司", store: "飛訊部落 嘉義朴子店", name: "吳欣儒", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
-      { id: 28, dealer: "鑫旺樹企業有限公司", store: "飛訊部落 嘉義朴子店", name: "林靜雯", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
-      { id: 29, dealer: "鑫旺樹企業有限公司", store: "飛訊部落台南新營店", name: "顏麗雯", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
-      { id: 30, dealer: "鑫旺樹企業有限公司", store: "飛訊部落台南新營店", name: "蔡幸娟", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
-      { id: 31, dealer: "鑫旺樹企業有限公司", store: "飛訊部落台南新營店", name: "吳嫚慈", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
-      { id: 32, dealer: "優銳資訊有限公司", store: "暐固科技台東店", name: "郭峻瑋", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
-      { id: 33, dealer: "優銳資訊有限公司", store: "暐固科技台東店", name: "蔡舒蕎", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" },
-      { id: 34, dealer: "優銳資訊有限公司", store: "暐固科技台東店", name: "吳思慧", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "" }
+      { id: 1, dealer: "秉皇科技有限公司", store: "A#SHOP 新北鶯歌店", name: "楊旻軒", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "V", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "", igniteActivityOct: "" },
+      { id: 2, dealer: "秉皇科技有限公司", store: "A#SHOP 新北鶯歌店", name: "郭文昌", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "V", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "", igniteActivityOct: "" },
+      { id: 3, dealer: "秉皇科技有限公司", store: "A#SHOP 新北鶯歌店", name: "邱珮瑋", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "V", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "", igniteActivityOct: "" },
+      { id: 4, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化市店", name: "李昀芳", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "", igniteActivityOct: "" },
+      { id: 5, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化市店", name: "胡雅恩", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "", igniteActivityOct: "" },
+      { id: 6, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化市店", name: "宋榮輝", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "V", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "", igniteActivityOct: "" },
+      { id: 7, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化市店", name: "吳宜庭", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "V", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "", igniteActivityOct: "" },
+      { id: 8, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化鹿港店", name: "楊琹伊", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "V", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "", igniteActivityOct: "" },
+      { id: 9, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化鹿港店", name: "沈思妤", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "", igniteActivityOct: "" },
+      { id: 10, dealer: "秉皇科技有限公司", store: "A#SHOP 彰化鹿港店", name: "李政儒", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "V", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "", igniteActivityOct: "V" },
+      { id: 11, dealer: "秉皇科技有限公司", store: "A#SHOP新北市土城店", name: "翁湘庭", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "", igniteActivityOct: "" },
+      { id: 12, dealer: "秉皇科技有限公司", store: "A#SHOP新北市土城店", name: "李智豪", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "V", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "", igniteActivityOct: "" },
+      { id: 13, dealer: "秉皇科技有限公司", store: "A#SHOP新北市土城店", name: "柯宛汝", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "V", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "", igniteActivityOct: "" },
+      { id: 14, dealer: "秉皇科技有限公司", store: "A#SHOP新北市土城店", name: "林芳蕾", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "V", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "", igniteActivityOct: "V" },
+      { id: 15, dealer: "宏驜有限公司", store: "LIFONE 花蓮遠東百貨店", name: "朱莉慈", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "", igniteActivityOct: "" },
+      { id: 16, dealer: "宏驜有限公司", store: "LIFONE 花蓮遠東百貨店", name: "劉懿萱", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "", igniteActivityOct: "" },
+      { id: 17, dealer: "宏驜有限公司", store: "LIFONE 花蓮遠東百貨店", name: "李宜諪", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "V", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "", igniteActivityOct: "" },
+      { id: 18, dealer: "一七二有限公司", store: "STAMINA 新竹竹東店", name: "徐佳萱", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "V", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "", igniteActivityOct: "" },
+      { id: 19, dealer: "一七二有限公司", store: "STAMINA 新竹竹東店", name: "王妤恩", profile: "", igniteOct: "V", wk1: "", wk2: "", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "", igniteActivityOct: "" },
+      { id: 20, dealer: "一七二有限公司", store: "STAMINA 新竹竹東店", name: "涂佳榆", profile: "", igniteOct: "V", wk1: "", wk2: "", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "", igniteActivityOct: "" },
+      { id: 21, dealer: "富鴻數位有限公司", store: "手機王數位 雲林虎尾店", name: "蘇韋安", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "", igniteActivityOct: "" },
+      { id: 22, dealer: "富鴻數位有限公司", store: "手機王數位 雲林虎尾店", name: "楊孝祖", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "", igniteActivityOct: "" },
+      { id: 23, dealer: "富鴻數位有限公司", store: "手機王數位 雲林虎尾店", name: "曾芊育", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "V", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "", igniteActivityOct: "" },
+      { id: 24, dealer: "富鴻數位有限公司", store: "手機王數位雲林斗六店", name: "雲德睿", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "", igniteActivityOct: "" },
+      { id: 25, dealer: "富鴻數位有限公司", store: "手機王數位雲林斗六店", name: "黃雅紋", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "", igniteActivityOct: "" },
+      { id: 26, dealer: "鑫旺樹企業有限公司", store: "飛訊部落 嘉義朴子店", name: "吳欣儒", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "", igniteActivityOct: "" },
+      { id: 27, dealer: "鑫旺樹企業有限公司", store: "飛訊部落 嘉義朴子店", name: "林靜雯", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "", igniteActivityOct: "" },
+      { id: 28, dealer: "鑫旺樹企業有限公司", store: "飛訊部落台南新營店", name: "顏麗雯", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "", igniteActivityOct: "" },
+      { id: 29, dealer: "鑫旺樹企業有限公司", store: "飛訊部落台南新營店", name: "蔡幸娟", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "", igniteActivityOct: "" },
+      { id: 30, dealer: "鑫旺樹企業有限公司", store: "飛訊部落台南新營店", name: "吳嫚慈", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "V", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "", igniteActivityOct: "" },
+      { id: 31, dealer: "優銳資訊有限公司", store: "暐固科技台東店", name: "郭峻瑋", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "", igniteActivityOct: "" },
+      { id: 32, dealer: "優銳資訊有限公司", store: "暐固科技台東店", name: "蔡舒蕎", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "", igniteActivityOct: "" },
+      { id: 33, dealer: "優銳資訊有限公司", store: "暐固科技台東店", name: "吳思慧", profile: "V", igniteOct: "V", wk1: "V", wk2: "V", wk3: "", wk4: "", wk5: "", wk6: "", wk7: "", wk8: "", wk9: "", wk10: "", wk11: "", igniteActivityOct: "" }
     ];
 
     // Initialize Store Filter Dropdown
@@ -1004,12 +1010,17 @@
         let matchStatus = true;
         const isProfileDone = item.profile && item.profile.trim().toUpperCase() === 'V';
         const isIgniteDone = item.igniteOct && item.igniteOct.trim().toUpperCase() === 'V';
+        const isIgniteActivityDone = item.igniteActivityOct && item.igniteActivityOct.trim().toUpperCase() === 'V';
         
         const isWkDone = (k) => item['wk' + k] && item['wk' + k].trim().toUpperCase() === 'V';
         const allWkDone = [1,2,3,4,5,6,7,8,9,10,11].every(k => isWkDone(k));
 
         if (selectedStatus === 'current-all-done') {
-          matchStatus = isProfileDone && isIgniteDone && isWkDone(1) && isWkDone(2);
+          matchStatus = isProfileDone && isIgniteDone && isWkDone(1) && isWkDone(2) && isWkDone(3);
+        } else if (selectedStatus === 'wk3-done') {
+          matchStatus = isWkDone(3);
+        } else if (selectedStatus === 'wk3-pending') {
+          matchStatus = !isWkDone(3);
         } else if (selectedStatus === 'wk2-done') {
           matchStatus = isWkDone(2);
         } else if (selectedStatus === 'wk2-pending') {
@@ -1022,6 +1033,10 @@
           matchStatus = isIgniteDone;
         } else if (selectedStatus === 'ignite-pending') {
           matchStatus = !isIgniteDone;
+        } else if (selectedStatus === 'ignite-activity-done') {
+          matchStatus = isIgniteActivityDone;
+        } else if (selectedStatus === 'ignite-activity-pending') {
+          matchStatus = !isIgniteActivityDone;
         } else if (selectedStatus === 'profile-done') {
           matchStatus = isProfileDone;
         } else if (selectedStatus === 'profile-pending') {
@@ -1059,6 +1074,9 @@
       const igniteDoneCount = filtered.filter(i => i.igniteOct && i.igniteOct.trim().toUpperCase() === 'V').length;
       updateStatPill(igniteDoneCount, 'pill-ignite', 'stat-ignite');
 
+      const igniteActivityDoneCount = filtered.filter(i => i.igniteActivityOct && i.igniteActivityOct.trim().toUpperCase() === 'V').length;
+      updateStatPill(igniteActivityDoneCount, 'pill-ignite-activity', 'stat-ignite-activity');
+
       for (let k = 1; k <= 11; k++) {
         const wkDoneCount = filtered.filter(i => i['wk' + k] && i['wk' + k].trim().toUpperCase() === 'V').length;
         updateStatPill(wkDoneCount, 'pill-wk' + k, 'stat-wk' + k);
@@ -1086,6 +1104,7 @@
           <td>${getLightHtml(item.wk9)}</td>
           <td>${getLightHtml(item.wk10)}</td>
           <td>${getLightHtml(item.wk11)}</td>
+          <td>${getLightHtml(item.igniteActivityOct)}</td>
         `;
 
         tbody.appendChild(tr);
@@ -1098,6 +1117,7 @@
       
       const isProfile = item.profile && item.profile.trim().toUpperCase() === 'V';
       const isIgnite = item.igniteOct && item.igniteOct.trim().toUpperCase() === 'V';
+      const isIgniteActivity = item.igniteActivityOct && item.igniteActivityOct.trim().toUpperCase() === 'V';
       
       let wkDoneCount = 0;
       let weekCardsHtml = '';
@@ -1112,8 +1132,8 @@
         `;
       }
 
-      const doneCount = (isProfile ? 1 : 0) + (isIgnite ? 1 : 0) + wkDoneCount;
-      const totalTasks = 13;
+      const doneCount = (isProfile ? 1 : 0) + (isIgnite ? 1 : 0) + (isIgniteActivity ? 1 : 0) + wkDoneCount;
+      const totalTasks = 14;
       const percent = Math.round((doneCount / totalTasks) * 100);
 
       const content = document.getElementById('modal-content');
@@ -1136,6 +1156,10 @@
         <div class="modal-item">
           <div class="modal-item-label">Ignite 每月任務 (十月)</div>
           <div class="modal-item-value">${isIgnite ? '🟢 已完成' : '🔴 未完成'}</div>
+        </div>
+        <div class="modal-item" style="grid-column: span 2;">
+          <div class="modal-item-label">Ignite 限時活動 (十月)</div>
+          <div class="modal-item-value">${isIgniteActivity ? '🟢 已完成' : '🔴 未完成'}</div>
         </div>
         <div class="modal-item" style="grid-column: span 2;">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
