@@ -744,30 +744,9 @@
     <header class="app-header">
       <h1>
         <span>MONO AAR+ 門市人員任務追蹤表</span>
-        <span class="badge">10月份報表</span>
+        <span class="badge">11 月份進度報表</span>
       </h1>
-      <div class="header-stats">
-        <div class="stat-pill">經銷門市: <strong id="stat-stores">0</strong> 家</div>
-        <div class="stat-pill">追蹤人員: <strong id="stat-people">0</strong> 人</div>
-        <div class="stat-pill" id="pill-profile">個資更新: <strong id="stat-profile">0</strong> 人</div>
-        <div class="stat-pill" id="pill-ignite">Ignite十一月: <strong id="stat-ignite">0</strong> 人</div>
-        <div class="stat-pill" id="pill-wk1">WK1: <strong id="stat-wk1">0</strong> 人</div>
-        <div class="stat-pill" id="pill-wk2">WK2: <strong id="stat-wk2">0</strong> 人</div>
-        <div class="stat-pill" id="pill-wk3">WK3: <strong id="stat-wk3">0</strong> 人</div>
-        <div class="stat-pill" id="pill-wk4">WK4: <strong id="stat-wk4">0</strong> 人</div>
-        <div class="stat-pill" id="pill-wk5">WK5: <strong id="stat-wk5">0</strong> 人</div>
-        <div class="stat-pill" id="pill-wk6">WK6: <strong id="stat-wk6">0</strong> 人</div>
-        <div class="stat-pill" id="pill-wk7">WK7: <strong id="stat-wk7">0</strong> 人</div>
-        <div class="stat-pill" id="pill-wk8">WK8: <strong id="stat-wk8">0</strong> 人</div>
-        <div class="stat-pill" id="pill-wk9">WK9: <strong id="stat-wk9">0</strong> 人</div>
-        <div class="stat-pill" id="pill-wk10">WK10: <strong id="stat-wk10">0</strong> 人</div>
-        <div class="stat-pill" id="pill-wk11">WK11: <strong id="stat-wk11">0</strong> 人</div>
-        <div class="stat-pill" id="pill-sc-monthly">SC十月: <strong id="stat-sc-monthly">0</strong> 人</div>
-        <div class="stat-pill" id="pill-sc-os27">OS 27: <strong id="stat-sc-os27">0</strong> 人</div>
-        <div class="stat-pill" id="pill-sc-newdealer">新經銷培訓: <strong id="stat-sc-newdealer">0</strong> 人</div>
-        <div class="stat-pill" id="pill-sc-macquiz">Mac測驗: <strong id="stat-sc-macquiz">0</strong> 人</div>
-        <button class="logout-btn" onclick="handleLogout()" title="登出並鎖定系統">🔒 登出</button>
-      </div>
+      <button class="logout-btn" onclick="handleLogout()" title="登出並鎖定系統">🔒 登出</button>
     </header>
 
     <!-- Controls & Legend Panel -->
@@ -783,8 +762,8 @@
             <option value="all-open-done">所有已開放任務全達標者 (含Sales Coach) (22人)</option>
             <option value="current-all-done">目前進度全達標者 (含WK4) (31人)</option>
             <option value="all-wk-done">11 週挑戰賽全達標者 (0人)</option>
-            <option value="wk5-done">WK5 已完成 (1人)</option>
-            <option value="wk5-pending">WK5 未完成 (32人)</option>
+            <option value="wk5-done">WK5 已完成 (2人)</option>
+            <option value="wk5-pending">WK5 未完成 (31人)</option>
             <option value="wk4-done">WK4 已完成 (32人)</option>
             <option value="wk4-pending">WK4 未完成 (1人)</option>
             <option value="wk3-done">WK3 已完成 (32人)</option>
@@ -945,7 +924,7 @@
       input.type = input.type === 'password' ? 'text' : 'password';
     }
 
-    // Embedded Complete Dataset from Updated CSV (11/08 Revision - FY27Q1 11週挑戰賽 & Sales Coach)
+    // Embedded Complete Dataset from Updated CSV (11/10 Revision - FY27Q1 11週挑戰賽 & Sales Coach)
     const rawData = [
       {"id":1,"dealer":"一七二","store":"STAMINA 新竹竹東店","name":"徐佳萱","profile":"V","igniteNov":"V","wk1":"V","wk2":"V","wk3":"V","wk4":"V","wk5":"","wk6":"","wk7":"","wk8":"","wk9":"","wk10":"","wk11":"","scMonthlyOct":"V","scOs27":"V","scNewDealer":"V","scMacQuiz":"V"},
       {"id":2,"dealer":"一七二","store":"STAMINA 新竹竹東店","name":"王妤恩","profile":"V","igniteNov":"V","wk1":"V","wk2":"V","wk3":"V","wk4":"V","wk5":"","wk6":"","wk7":"","wk8":"","wk9":"","wk10":"","wk11":"","scMonthlyOct":"V","scOs27":"V","scNewDealer":"V","scMacQuiz":"V"},
@@ -975,7 +954,7 @@
       {"id":26,"dealer":"優銳","store":"iSpot 台東店","name":"吳思慧","profile":"V","igniteNov":"V","wk1":"V","wk2":"V","wk3":"V","wk4":"V","wk5":"","wk6":"","wk7":"","wk8":"","wk9":"","wk10":"","wk11":"","scMonthlyOct":"V","scOs27":"V","scNewDealer":"V","scMacQuiz":""},
       {"id":27,"dealer":"優銳","store":"iSpot 台東店","name":"郭峻瑋","profile":"V","igniteNov":"V","wk1":"V","wk2":"V","wk3":"V","wk4":"V","wk5":"","wk6":"","wk7":"","wk8":"","wk9":"","wk10":"","wk11":"","scMonthlyOct":"V","scOs27":"V","scNewDealer":"V","scMacQuiz":"V"},
       {"id":28,"dealer":"優銳","store":"iSpot 台東店","name":"蔡舒蕎","profile":"V","igniteNov":"V","wk1":"V","wk2":"V","wk3":"V","wk4":"V","wk5":"","wk6":"","wk7":"","wk8":"","wk9":"","wk10":"","wk11":"","scMonthlyOct":"V","scOs27":"V","scNewDealer":"","scMacQuiz":"V"},
-      {"id":29,"dealer":"鑫旺樹","store":"飛訊部落 台南新營店","name":"吳嫚慈","profile":"V","igniteNov":"V","wk1":"V","wk2":"V","wk3":"V","wk4":"V","wk5":"","wk6":"","wk7":"","wk8":"","wk9":"","wk10":"","wk11":"","scMonthlyOct":"V","scOs27":"V","scNewDealer":"V","scMacQuiz":"V"},
+      {"id":29,"dealer":"鑫旺樹","store":"飛訊部落 台南新營店","name":"吳嫚慈","profile":"V","igniteNov":"V","wk1":"V","wk2":"V","wk3":"V","wk4":"V","wk5":"V","wk6":"","wk7":"","wk8":"","wk9":"","wk10":"","wk11":"","scMonthlyOct":"V","scOs27":"V","scNewDealer":"V","scMacQuiz":"V"},
       {"id":30,"dealer":"鑫旺樹","store":"飛訊部落 台南新營店","name":"蔡幸娟","profile":"V","igniteNov":"V","wk1":"V","wk2":"V","wk3":"V","wk4":"V","wk5":"","wk6":"","wk7":"","wk8":"","wk9":"","wk10":"","wk11":"","scMonthlyOct":"V","scOs27":"V","scNewDealer":"V","scMacQuiz":"V"},
       {"id":31,"dealer":"鑫旺樹","store":"飛訊部落 台南新營店","name":"顏麗雯","profile":"V","igniteNov":"V","wk1":"V","wk2":"V","wk3":"V","wk4":"V","wk5":"","wk6":"","wk7":"","wk8":"","wk9":"","wk10":"","wk11":"","scMonthlyOct":"V","scOs27":"V","scNewDealer":"V","scMacQuiz":""},
       {"id":32,"dealer":"鑫旺樹","store":"飛訊部落 嘉義朴子店","name":"吳欣儒","profile":"V","igniteNov":"V","wk1":"V","wk2":"V","wk3":"V","wk4":"V","wk5":"","wk6":"","wk7":"","wk8":"","wk9":"","wk10":"","wk11":"","scMonthlyOct":"V","scOs27":"V","scNewDealer":"V","scMacQuiz":"V"},
@@ -1100,8 +1079,8 @@
       // Update Stats
       const uniqueStores = new Set(filtered.map(i => i.store)).size;
       const totalFiltered = filtered.length;
-      document.getElementById('stat-stores').textContent = uniqueStores;
-      document.getElementById('stat-people').textContent = totalFiltered;
+      const statStoresEl = document.getElementById('stat-stores'); if (statStoresEl) statStoresEl.textContent = uniqueStores;
+      const statPeopleEl = document.getElementById('stat-people'); if (statPeopleEl) statPeopleEl.textContent = totalFiltered;
 
       // Helper to update stat text and hide if fully completed
       function updateStatPill(count, pillId, statId, isRatio = false) {
