@@ -283,6 +283,54 @@
       color: #ffffff;
     }
 
+    /* Completed Columns Collapsed Mode */
+    #main-table.cols-collapsed .col-completed {
+      display: none !important;
+    }
+
+    /* Toggle Buttons Group */
+    .toggle-group {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 12px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      color: #334155;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      user-select: none;
+    }
+
+    .btn-toggle:hover {
+      background: #e2e8f0;
+      border-color: #94a3b8;
+      color: #0f172a;
+    }
+
+    .btn-toggle.active {
+      background: #eff6ff;
+      border-color: #93c5fd;
+      color: #1d4ed8;
+      box-shadow: 0 1px 2px rgba(59, 130, 246, 0.1);
+    }
+
+    .btn-toggle.active:hover {
+      background: #dbeafe;
+      border-color: #60a5fa;
+    }
+
     /* Controls Bar & Legend */
     .control-panel {
       background: var(--bg-card);
@@ -786,6 +834,14 @@
             <option value="profile-pending">個人資料未更新 (0人)</option>
           </select>
         </div>
+        <div class="toggle-group">
+          <button type="button" id="btn-toggle-cols" class="btn-toggle" onclick="toggleCompletedCols()" title="點擊展開/摺疊已全數達標欄位">
+            <span class="btn-icon">👁️</span> 展開已達標欄位 (5項)
+          </button>
+          <button type="button" id="btn-toggle-personnel" class="btn-toggle" onclick="toggleCompletedPersonnel()" title="點擊展開/摺疊已全數達標人員">
+            <span class="btn-icon">👥</span> 展開全達標人員 (20人)
+          </button>
+        </div>
       </div>
 
       <!-- Legend Explanation -->
@@ -805,16 +861,16 @@
 
     <!-- Scrollable Frozen Table Container -->
     <main class="table-container">
-      <table id="main-table">
+      <table id="main-table" class="cols-collapsed">
         <thead>
           <!-- Header Row 1 -->
           <tr>
             <th class="col-dealer">經銷商</th>
             <th class="col-store">門市</th>
             <th class="col-name">姓名</th>
-            <th>更新<br>個人資料</th>
+            <th id="th-profile" class="col-completed">更新<br>個人資料</th>
             <th>Ignite<br>每月任務</th>
-            <th colspan="11" class="mypal-header">MyPal FY27Q1 11 週挑戰賽</th>
+            <th id="th-mypal" colspan="7" class="mypal-header">MyPal FY27Q1 11 週挑戰賽</th>
             <th colspan="4" class="salescoach-header">Sales Coach</th>
           </tr>
           <!-- Header Row 2 -->
@@ -823,7 +879,7 @@
             <th class="col-store"></th>
             <th class="col-name"></th>
             <!-- Link Icon Button directly underneath "更新個人資料" header -->
-            <th style="padding: 4px;">
+            <th class="col-completed" style="padding: 4px;">
               <a href="https://reurl.cc/dOW9gz" target="_blank" rel="noopener noreferrer" 
                  class="header-link-btn" title="🔗 點擊開啟：更新個人資料網頁">
                 <svg class="link-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -835,10 +891,10 @@
               </a>
             </th>
             <th class="sub-header-label">十一月</th>
-            <th class="sub-header-label">WK1</th>
-            <th class="sub-header-label">WK2</th>
-            <th class="sub-header-label">WK3</th>
-            <th class="sub-header-label">WK4</th>
+            <th class="col-completed sub-header-label">WK1</th>
+            <th class="col-completed sub-header-label">WK2</th>
+            <th class="col-completed sub-header-label">WK3</th>
+            <th class="col-completed sub-header-label">WK4</th>
             <th class="sub-header-label">WK5</th>
             <th class="sub-header-label">WK6</th>
             <th class="sub-header-label">WK7</th>
@@ -884,6 +940,8 @@
       if (loggedIn) {
         loginOverlay.style.display = 'none';
         mainApp.style.display = 'flex';
+        updateColsCollapsedState();
+        updatePersonnelCollapsedState();
         renderTable();
       } else {
         loginOverlay.style.display = 'flex';
@@ -919,6 +977,65 @@
     }
 
     // Toggle Password Input Visibility
+    // Folding / Collapse States (Default: Collapsed)
+    let isColsCollapsed = true;
+    let isPersonnelCollapsed = true;
+
+    const isValV = (val) => val && val.trim().toUpperCase() === 'V';
+
+    // Check if person has completed ALL currently active/open tasks (0 pending tasks)
+    function isPersonAllOpenDone(item) {
+      return isValV(item.profile) &&
+             isValV(item.igniteNov) &&
+             isValV(item.wk1) && isValV(item.wk2) && isValV(item.wk3) && isValV(item.wk4) && isValV(item.wk5) &&
+             isValV(item.scMonthlyOct) && isValV(item.scOs27) && isValV(item.scNewDealer) && isValV(item.scMacQuiz);
+    }
+
+    function toggleCompletedCols() {
+      isColsCollapsed = !isColsCollapsed;
+      updateColsCollapsedState();
+    }
+
+    function updateColsCollapsedState() {
+      const table = document.getElementById('main-table');
+      const btn = document.getElementById('btn-toggle-cols');
+      const mypalHeader = document.getElementById('th-mypal');
+      if (isColsCollapsed) {
+        if (table) table.classList.add('cols-collapsed');
+        if (mypalHeader) mypalHeader.setAttribute('colspan', '7');
+        if (btn) {
+          btn.classList.remove('active');
+          btn.innerHTML = '<span class="btn-icon">👁️</span> 展開已達標欄位 (5項)';
+        }
+      } else {
+        if (table) table.classList.remove('cols-collapsed');
+        if (mypalHeader) mypalHeader.setAttribute('colspan', '11');
+        if (btn) {
+          btn.classList.add('active');
+          btn.innerHTML = '<span class="btn-icon">🙈</span> 摺疊已達標欄位';
+        }
+      }
+    }
+
+    function toggleCompletedPersonnel() {
+      isPersonnelCollapsed = !isPersonnelCollapsed;
+      updatePersonnelCollapsedState();
+      renderTable();
+    }
+
+    function updatePersonnelCollapsedState() {
+      const btn = document.getElementById('btn-toggle-personnel');
+      if (btn) {
+        if (isPersonnelCollapsed) {
+          btn.classList.remove('active');
+          btn.innerHTML = '<span class="btn-icon">👥</span> 展開全達標人員 (20人)';
+        } else {
+          btn.classList.add('active');
+          btn.innerHTML = '<span class="btn-icon">🎯</span> 只看待追蹤人員 (13人)';
+        }
+      }
+    }
+
     function togglePasswordVisibility() {
       const input = document.getElementById('pwd-input');
       input.type = input.type === 'password' ? 'text' : 'password';
@@ -1000,6 +1117,34 @@
       const selectedStore = document.getElementById('filter-store').value;
       const selectedStatus = document.getElementById('filter-status').value;
 
+      // Auto-expand completed columns if user selects a filter for completed columns
+      const autoExpandColFilters = [
+        'all-open-done', 'current-all-done',
+        'wk1-done', 'wk2-done', 'wk3-done', 'wk4-done',
+        'profile-done', 'profile-pending',
+        'wk1-pending', 'wk2-pending', 'wk3-pending', 'wk4-pending'
+      ];
+      if (autoExpandColFilters.includes(selectedStatus)) {
+        if (isColsCollapsed) {
+          isColsCollapsed = false;
+          updateColsCollapsedState();
+        }
+      }
+
+      // Auto-expand personnel if user selects a filter that targets completed personnel
+      const autoExpandPersonnelFilters = [
+        'all-open-done', 'current-all-done',
+        'wk1-done', 'wk2-done', 'wk3-done', 'wk4-done', 'wk5-done',
+        'profile-done', 'ignite-done', 'sc-monthly-done', 'sc-os27-done',
+        'sc-newdealer-done', 'sc-macquiz-done'
+      ];
+      if (autoExpandPersonnelFilters.includes(selectedStatus)) {
+        if (isPersonnelCollapsed) {
+          isPersonnelCollapsed = false;
+          updatePersonnelCollapsedState();
+        }
+      }
+
       const tbody = document.getElementById('table-body');
       tbody.innerHTML = '';
 
@@ -1010,6 +1155,13 @@
           item.name.toLowerCase().includes(searchVal);
 
         const matchStore = !selectedStore || item.store === selectedStore;
+
+        // If personnel collapsed by default, and user is not searching or applying specific status filter:
+        if (isPersonnelCollapsed && !searchVal && !selectedStatus) {
+          if (isPersonAllOpenDone(item)) {
+            return false;
+          }
+        }
 
         let matchStatus = true;
         const isProfileDone = item.profile && item.profile.trim().toUpperCase() === 'V';
@@ -1120,6 +1272,26 @@
       updateStatPill(scMacQuizCount, 'pill-sc-macquiz', 'stat-sc-macquiz');
 
       // Render Rows
+      if (filtered.length === 0) {
+        const tr = document.createElement('tr');
+        if (selectedStore && isPersonnelCollapsed && !searchVal && !selectedStatus) {
+          tr.innerHTML = `
+            <td colspan="20" style="text-align: center; padding: 36px 16px; background: #ecfdf5; color: #047857; font-weight: 600; font-size: 0.95rem;">
+              🎉 <strong>${selectedStore}</strong> 人員已全數完成目前開放任務！
+              <button type="button" class="btn-toggle active" style="margin-left: 12px; vertical-align: middle;" onclick="toggleCompletedPersonnel()">點此展開檢視名單</button>
+            </td>
+          `;
+        } else {
+          tr.innerHTML = `
+            <td colspan="20" style="text-align: center; padding: 36px 16px; color: #64748b; font-size: 0.9rem;">
+              查無符合條件的人員資料
+            </td>
+          `;
+        }
+        tbody.appendChild(tr);
+        return;
+      }
+
       filtered.forEach(item => {
         const tr = document.createElement('tr');
         tr.onclick = () => openModal(item);
@@ -1128,12 +1300,12 @@
           <td class="col-dealer"><span class="text-ellipsis" title="${item.dealer}">${item.dealer}</span></td>
           <td class="col-store"><span class="text-ellipsis" title="${item.store}">${item.store}</span></td>
           <td class="col-name"><strong style="color:#0f172a;">${item.name}</strong></td>
-          <td>${getLightHtml(item.profile)}</td>
+          <td class="col-completed">${getLightHtml(item.profile)}</td>
           <td>${getLightHtml(item.igniteNov)}</td>
-          <td>${getLightHtml(item.wk1)}</td>
-          <td>${getLightHtml(item.wk2)}</td>
-          <td>${getLightHtml(item.wk3)}</td>
-          <td>${getLightHtml(item.wk4)}</td>
+          <td class="col-completed">${getLightHtml(item.wk1)}</td>
+          <td class="col-completed">${getLightHtml(item.wk2)}</td>
+          <td class="col-completed">${getLightHtml(item.wk3)}</td>
+          <td class="col-completed">${getLightHtml(item.wk4)}</td>
           <td>${getLightHtml(item.wk5)}</td>
           <td>${getLightHtml(item.wk6)}</td>
           <td>${getLightHtml(item.wk7)}</td>
