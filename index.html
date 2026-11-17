@@ -807,11 +807,13 @@
           </select>
           <select id="filter-status" class="select-input" onchange="renderTable()">
             <option value="">所有人員狀態</option>
-            <option value="all-open-done">所有已開放任務全達標者 (含Sales Coach) (23人)</option>
-            <option value="current-all-done">目前進度全達標者 (含WK4) (31人)</option>
+            <option value="all-open-done">所有已開放任務全達標者 (零紅燈) (18人)</option>
+            <option value="current-all-done">目前進度全達標者 (含WK6) (20人)</option>
             <option value="all-wk-done">11 週挑戰賽全達標者 (0人)</option>
-            <option value="wk5-done">WK5 已完成 (31人)</option>
-            <option value="wk5-pending">WK5 未完成 (1人)</option>
+            <option value="wk6-done">WK6 已完成 (20人)</option>
+            <option value="wk6-pending">WK6 未完成 (12人)</option>
+            <option value="wk5-done">WK5 已完成 (32人 - 全員達標)</option>
+            <option value="wk5-pending">WK5 未完成 (0人)</option>
             <option value="wk4-done">WK4 已完成 (32人 - 全員達標)</option>
             <option value="wk4-pending">WK4 未完成 (0人)</option>
             <option value="wk3-done">WK3 已完成 (32人 - 全員達標)</option>
@@ -836,10 +838,10 @@
         </div>
         <div class="toggle-group">
           <button type="button" id="btn-toggle-cols" class="btn-toggle" onclick="toggleCompletedCols()" title="點擊展開/摺疊已全數達標欄位">
-            <span class="btn-icon">👁️</span> 展開已達標欄位 (5項)
+            <span class="btn-icon">👁️</span> 展開已達標欄位 (6項)
           </button>
           <button type="button" id="btn-toggle-personnel" class="btn-toggle" onclick="toggleCompletedPersonnel()" title="點擊展開/摺疊已全數達標人員">
-            <span class="btn-icon">👥</span> 展開全達標人員 (22人)
+            <span class="btn-icon">👥</span> 展開全達標人員 (18人)
           </button>
         </div>
       </div>
@@ -870,7 +872,7 @@
             <th class="col-name">姓名</th>
             <th id="th-profile" class="col-completed">更新<br>個人資料</th>
             <th>Ignite<br>每月任務</th>
-            <th id="th-mypal" colspan="7" class="mypal-header">MyPal FY27Q1 11 週挑戰賽</th>
+            <th id="th-mypal" colspan="6" class="mypal-header">MyPal FY27Q1 11 週挑戰賽</th>
             <th colspan="4" class="salescoach-header">Sales Coach</th>
           </tr>
           <!-- Header Row 2 -->
@@ -895,7 +897,7 @@
             <th class="col-completed sub-header-label">WK2</th>
             <th class="col-completed sub-header-label">WK3</th>
             <th class="col-completed sub-header-label">WK4</th>
-            <th class="sub-header-label">WK5</th>
+            <th class="col-completed sub-header-label">WK5</th>
             <th class="sub-header-label">WK6</th>
             <th class="sub-header-label">WK7</th>
             <th class="sub-header-label">WK8</th>
@@ -987,7 +989,7 @@
     function isPersonAllOpenDone(item) {
       return isValV(item.profile) &&
              isValV(item.igniteNov) &&
-             isValV(item.wk1) && isValV(item.wk2) && isValV(item.wk3) && isValV(item.wk4) && isValV(item.wk5) &&
+             isValV(item.wk1) && isValV(item.wk2) && isValV(item.wk3) && isValV(item.wk4) && isValV(item.wk5) && isValV(item.wk6) &&
              isValV(item.scMonthlyOct) && isValV(item.scOs27) && isValV(item.scNewDealer) && isValV(item.scMacQuiz);
     }
 
@@ -1002,10 +1004,10 @@
       const mypalHeader = document.getElementById('th-mypal');
       if (isColsCollapsed) {
         if (table) table.classList.add('cols-collapsed');
-        if (mypalHeader) mypalHeader.setAttribute('colspan', '7');
+        if (mypalHeader) mypalHeader.setAttribute('colspan', '6');
         if (btn) {
           btn.classList.remove('active');
-          btn.innerHTML = '<span class="btn-icon">👁️</span> 展開已達標欄位 (5項)';
+          btn.innerHTML = '<span class="btn-icon">👁️</span> 展開已達標欄位 (6項)';
         }
       } else {
         if (table) table.classList.remove('cols-collapsed');
@@ -1028,10 +1030,10 @@
       if (btn) {
         if (isPersonnelCollapsed) {
           btn.classList.remove('active');
-          btn.innerHTML = '<span class="btn-icon">👥</span> 展開全達標人員 (22人)';
+          btn.innerHTML = '<span class="btn-icon">👥</span> 展開全達標人員 (18人)';
         } else {
           btn.classList.add('active');
-          btn.innerHTML = '<span class="btn-icon">🎯</span> 只看待追蹤人員 (10人)';
+          btn.innerHTML = '<span class="btn-icon">🎯</span> 只看待追蹤人員 (14人)';
         }
       }
     }
@@ -1043,38 +1045,38 @@
 
     // Embedded Complete Dataset from Updated CSV (11/17 Revision - FY27Q1 11週挑戰賽 & Sales Coach)
     const rawData = [
-      {"id":1,"dealer":"一七二","store":"STAMINA 新竹竹東店","name":"徐佳萱","profile":"V","igniteNov":"V","wk1":"V","wk2":"V","wk3":"V","wk4":"V","wk5":"V","wk6":"","wk7":"","wk8":"","wk9":"","wk10":"","wk11":"","scMonthlyOct":"V","scOs27":"V","scNewDealer":"V","scMacQuiz":"V"},
-      {"id":2,"dealer":"一七二","store":"STAMINA 新竹竹東店","name":"王妤恩","profile":"V","igniteNov":"V","wk1":"V","wk2":"V","wk3":"V","wk4":"V","wk5":"V","wk6":"","wk7":"","wk8":"","wk9":"","wk10":"","wk11":"","scMonthlyOct":"V","scOs27":"V","scNewDealer":"V","scMacQuiz":"V"},
-      {"id":3,"dealer":"一七二","store":"STAMINA 新竹竹東店","name":"涂佳榆","profile":"V","igniteNov":"V","wk1":"V","wk2":"V","wk3":"V","wk4":"V","wk5":"V","wk6":"","wk7":"","wk8":"","wk9":"","wk10":"","wk11":"","scMonthlyOct":"V","scOs27":"V","scNewDealer":"V","scMacQuiz":"V"},
-      {"id":4,"dealer":"宏驜","store":"Lifone 花蓮遠百店","name":"朱莉慈","profile":"V","igniteNov":"V","wk1":"V","wk2":"V","wk3":"V","wk4":"V","wk5":"V","wk6":"","wk7":"","wk8":"","wk9":"","wk10":"","wk11":"","scMonthlyOct":"V","scOs27":"V","scNewDealer":"","scMacQuiz":"V"},
-      {"id":5,"dealer":"宏驜","store":"Lifone 花蓮遠百店","name":"李宜諪","profile":"V","igniteNov":"V","wk1":"V","wk2":"V","wk3":"V","wk4":"V","wk5":"V","wk6":"","wk7":"","wk8":"","wk9":"","wk10":"","wk11":"","scMonthlyOct":"V","scOs27":"V","scNewDealer":"V","scMacQuiz":"V"},
-      {"id":6,"dealer":"宏驜","store":"Lifone 花蓮遠百店","name":"劉懿萱","profile":"V","igniteNov":"V","wk1":"V","wk2":"V","wk3":"V","wk4":"V","wk5":"V","wk6":"","wk7":"","wk8":"","wk9":"","wk10":"","wk11":"","scMonthlyOct":"V","scOs27":"V","scNewDealer":"V","scMacQuiz":"V"},
-      {"id":7,"dealer":"秉皇","store":"a# shop 新北土城店","name":"李智豪","profile":"V","igniteNov":"V","wk1":"V","wk2":"V","wk3":"V","wk4":"V","wk5":"V","wk6":"","wk7":"","wk8":"","wk9":"","wk10":"","wk11":"","scMonthlyOct":"V","scOs27":"V","scNewDealer":"V","scMacQuiz":"V"},
-      {"id":8,"dealer":"秉皇","store":"a# shop 新北土城店","name":"林芳蕾","profile":"V","igniteNov":"V","wk1":"V","wk2":"V","wk3":"V","wk4":"V","wk5":"V","wk6":"","wk7":"","wk8":"","wk9":"","wk10":"","wk11":"","scMonthlyOct":"V","scOs27":"V","scNewDealer":"V","scMacQuiz":"V"},
-      {"id":9,"dealer":"秉皇","store":"a# shop 新北土城店","name":"柯宛汝","profile":"V","igniteNov":"V","wk1":"V","wk2":"V","wk3":"V","wk4":"V","wk5":"V","wk6":"","wk7":"","wk8":"","wk9":"","wk10":"","wk11":"","scMonthlyOct":"V","scOs27":"V","scNewDealer":"V","scMacQuiz":""},
-      {"id":10,"dealer":"秉皇","store":"a# shop 新北土城店","name":"翁湘庭","profile":"V","igniteNov":"V","wk1":"V","wk2":"V","wk3":"V","wk4":"V","wk5":"V","wk6":"","wk7":"","wk8":"","wk9":"","wk10":"","wk11":"","scMonthlyOct":"V","scOs27":"V","scNewDealer":"V","scMacQuiz":"V"},
-      {"id":11,"dealer":"秉皇","store":"a# shop 新北鶯歌店","name":"邱珮瑋","profile":"V","igniteNov":"V","wk1":"V","wk2":"V","wk3":"V","wk4":"V","wk5":"V","wk6":"","wk7":"","wk8":"","wk9":"","wk10":"","wk11":"","scMonthlyOct":"V","scOs27":"V","scNewDealer":"V","scMacQuiz":"V"},
-      {"id":12,"dealer":"秉皇","store":"a# shop 新北鶯歌店","name":"郭文昌","profile":"V","igniteNov":"V","wk1":"V","wk2":"V","wk3":"V","wk4":"V","wk5":"V","wk6":"","wk7":"","wk8":"","wk9":"","wk10":"","wk11":"","scMonthlyOct":"V","scOs27":"V","scNewDealer":"V","scMacQuiz":"V"},
-      {"id":13,"dealer":"秉皇","store":"a# shop 新北鶯歌店","name":"楊旻軒","profile":"V","igniteNov":"V","wk1":"V","wk2":"V","wk3":"V","wk4":"V","wk5":"V","wk6":"","wk7":"","wk8":"","wk9":"","wk10":"","wk11":"","scMonthlyOct":"V","scOs27":"V","scNewDealer":"V","scMacQuiz":"V"},
-      {"id":14,"dealer":"秉皇","store":"a# shop 彰化市店","name":"吳宜庭","profile":"V","igniteNov":"V","wk1":"V","wk2":"V","wk3":"V","wk4":"V","wk5":"V","wk6":"","wk7":"","wk8":"","wk9":"","wk10":"","wk11":"","scMonthlyOct":"V","scOs27":"V","scNewDealer":"V","scMacQuiz":"V"},
-      {"id":15,"dealer":"秉皇","store":"a# shop 彰化市店","name":"宋榮輝","profile":"V","igniteNov":"V","wk1":"V","wk2":"V","wk3":"V","wk4":"V","wk5":"V","wk6":"","wk7":"","wk8":"","wk9":"","wk10":"","wk11":"","scMonthlyOct":"V","scOs27":"V","scNewDealer":"V","scMacQuiz":"V"},
-      {"id":16,"dealer":"秉皇","store":"a# shop 彰化市店","name":"李昀芳","profile":"V","igniteNov":"V","wk1":"V","wk2":"V","wk3":"V","wk4":"V","wk5":"V","wk6":"","wk7":"","wk8":"","wk9":"","wk10":"","wk11":"","scMonthlyOct":"V","scOs27":"V","scNewDealer":"V","scMacQuiz":"V"},
-      {"id":17,"dealer":"秉皇","store":"a# shop 彰化市店","name":"胡雅恩","profile":"V","igniteNov":"","wk1":"V","wk2":"V","wk3":"V","wk4":"V","wk5":"V","wk6":"","wk7":"","wk8":"","wk9":"","wk10":"","wk11":"","scMonthlyOct":"","scOs27":"","scNewDealer":"","scMacQuiz":""},
-      {"id":18,"dealer":"秉皇","store":"a# shop 彰化鹿港店","name":"李政儒","profile":"V","igniteNov":"V","wk1":"V","wk2":"V","wk3":"V","wk4":"V","wk5":"V","wk6":"","wk7":"","wk8":"","wk9":"","wk10":"","wk11":"","scMonthlyOct":"V","scOs27":"V","scNewDealer":"V","scMacQuiz":"V"},
-      {"id":19,"dealer":"秉皇","store":"a# shop 彰化鹿港店","name":"沈思妤","profile":"V","igniteNov":"V","wk1":"V","wk2":"V","wk3":"V","wk4":"V","wk5":"V","wk6":"","wk7":"","wk8":"","wk9":"","wk10":"","wk11":"","scMonthlyOct":"V","scOs27":"V","scNewDealer":"V","scMacQuiz":""},
-      {"id":20,"dealer":"秉皇","store":"a# shop 彰化鹿港店","name":"楊琹伊","profile":"V","igniteNov":"V","wk1":"V","wk2":"V","wk3":"V","wk4":"V","wk5":"V","wk6":"","wk7":"","wk8":"","wk9":"","wk10":"","wk11":"","scMonthlyOct":"V","scOs27":"V","scNewDealer":"V","scMacQuiz":"V"},
-      {"id":21,"dealer":"富鴻","store":"手機王數位 雲林斗六店","name":"楊孝祖","profile":"V","igniteNov":"V","wk1":"V","wk2":"V","wk3":"V","wk4":"V","wk5":"","wk6":"","wk7":"","wk8":"","wk9":"","wk10":"","wk11":"","scMonthlyOct":"V","scOs27":"V","scNewDealer":"V","scMacQuiz":"V"},
-      {"id":22,"dealer":"富鴻","store":"手機王數位 雲林虎尾店","name":"曾芊育","profile":"V","igniteNov":"V","wk1":"V","wk2":"V","wk3":"V","wk4":"V","wk5":"V","wk6":"","wk7":"","wk8":"","wk9":"","wk10":"","wk11":"","scMonthlyOct":"V","scOs27":"V","scNewDealer":"V","scMacQuiz":"V"},
-      {"id":23,"dealer":"富鴻","store":"手機王數位 雲林虎尾店","name":"黃雅紋","profile":"V","igniteNov":"V","wk1":"V","wk2":"V","wk3":"V","wk4":"V","wk5":"V","wk6":"","wk7":"","wk8":"","wk9":"","wk10":"","wk11":"","scMonthlyOct":"V","scOs27":"V","scNewDealer":"V","scMacQuiz":"V"},
-      {"id":24,"dealer":"富鴻","store":"手機王數位 雲林虎尾店","name":"蘇韋安","profile":"V","igniteNov":"V","wk1":"V","wk2":"V","wk3":"V","wk4":"V","wk5":"V","wk6":"","wk7":"","wk8":"","wk9":"","wk10":"","wk11":"","scMonthlyOct":"","scOs27":"V","scNewDealer":"V","scMacQuiz":"V"},
-      {"id":25,"dealer":"優銳","store":"iSpot 台東店","name":"吳思慧","profile":"V","igniteNov":"V","wk1":"V","wk2":"V","wk3":"V","wk4":"V","wk5":"V","wk6":"","wk7":"","wk8":"","wk9":"","wk10":"","wk11":"","scMonthlyOct":"V","scOs27":"V","scNewDealer":"V","scMacQuiz":""},
-      {"id":26,"dealer":"優銳","store":"iSpot 台東店","name":"郭峻瑋","profile":"V","igniteNov":"V","wk1":"V","wk2":"V","wk3":"V","wk4":"V","wk5":"V","wk6":"","wk7":"","wk8":"","wk9":"","wk10":"","wk11":"","scMonthlyOct":"V","scOs27":"V","scNewDealer":"V","scMacQuiz":"V"},
-      {"id":27,"dealer":"優銳","store":"iSpot 台東店","name":"蔡舒蕎","profile":"V","igniteNov":"V","wk1":"V","wk2":"V","wk3":"V","wk4":"V","wk5":"V","wk6":"","wk7":"","wk8":"","wk9":"","wk10":"","wk11":"","scMonthlyOct":"V","scOs27":"V","scNewDealer":"","scMacQuiz":"V"},
-      {"id":28,"dealer":"鑫旺樹","store":"飛訊部落 台南新營店","name":"吳嫚慈","profile":"V","igniteNov":"V","wk1":"V","wk2":"V","wk3":"V","wk4":"V","wk5":"V","wk6":"","wk7":"","wk8":"","wk9":"","wk10":"","wk11":"","scMonthlyOct":"V","scOs27":"V","scNewDealer":"V","scMacQuiz":"V"},
-      {"id":29,"dealer":"鑫旺樹","store":"飛訊部落 台南新營店","name":"蔡幸娟","profile":"V","igniteNov":"V","wk1":"V","wk2":"V","wk3":"V","wk4":"V","wk5":"V","wk6":"","wk7":"","wk8":"","wk9":"","wk10":"","wk11":"","scMonthlyOct":"V","scOs27":"V","scNewDealer":"V","scMacQuiz":"V"},
-      {"id":30,"dealer":"鑫旺樹","store":"飛訊部落 台南新營店","name":"顏麗雯","profile":"V","igniteNov":"V","wk1":"V","wk2":"V","wk3":"V","wk4":"V","wk5":"V","wk6":"","wk7":"","wk8":"","wk9":"","wk10":"","wk11":"","scMonthlyOct":"V","scOs27":"V","scNewDealer":"V","scMacQuiz":""},
-      {"id":31,"dealer":"鑫旺樹","store":"飛訊部落 嘉義朴子店","name":"吳欣儒","profile":"V","igniteNov":"V","wk1":"V","wk2":"V","wk3":"V","wk4":"V","wk5":"V","wk6":"","wk7":"","wk8":"","wk9":"","wk10":"","wk11":"","scMonthlyOct":"V","scOs27":"V","scNewDealer":"V","scMacQuiz":"V"},
-      {"id":32,"dealer":"鑫旺樹","store":"飛訊部落 嘉義朴子店","name":"林靜雯","profile":"V","igniteNov":"V","wk1":"V","wk2":"V","wk3":"V","wk4":"V","wk5":"V","wk6":"","wk7":"","wk8":"","wk9":"","wk10":"","wk11":"","scMonthlyOct":"V","scOs27":"V","scNewDealer":"V","scMacQuiz":""}
+      {"id": 1, "dealer": "一七二", "store": "STAMINA 新竹竹東店", "name": "徐佳萱", "profile": "V", "igniteNov": "V", "wk1": "V", "wk2": "V", "wk3": "V", "wk4": "V", "wk5": "V", "wk6": "", "wk7": "", "wk8": "", "wk9": "", "wk10": "", "wk11": "", "scMonthlyOct": "V", "scOs27": "V", "scNewDealer": "V", "scMacQuiz": "V"},
+      {"id": 2, "dealer": "一七二", "store": "STAMINA 新竹竹東店", "name": "王妤恩", "profile": "V", "igniteNov": "V", "wk1": "V", "wk2": "V", "wk3": "V", "wk4": "V", "wk5": "V", "wk6": "V", "wk7": "", "wk8": "", "wk9": "", "wk10": "", "wk11": "", "scMonthlyOct": "V", "scOs27": "V", "scNewDealer": "V", "scMacQuiz": "V"},
+      {"id": 3, "dealer": "一七二", "store": "STAMINA 新竹竹東店", "name": "涂佳榆", "profile": "V", "igniteNov": "V", "wk1": "V", "wk2": "V", "wk3": "V", "wk4": "V", "wk5": "V", "wk6": "V", "wk7": "", "wk8": "", "wk9": "", "wk10": "", "wk11": "", "scMonthlyOct": "V", "scOs27": "V", "scNewDealer": "V", "scMacQuiz": "V"},
+      {"id": 4, "dealer": "宏驜", "store": "Lifone 花蓮遠百店", "name": "朱莉慈", "profile": "V", "igniteNov": "V", "wk1": "V", "wk2": "V", "wk3": "V", "wk4": "V", "wk5": "V", "wk6": "", "wk7": "", "wk8": "", "wk9": "", "wk10": "", "wk11": "", "scMonthlyOct": "V", "scOs27": "V", "scNewDealer": "", "scMacQuiz": "V"},
+      {"id": 5, "dealer": "宏驜", "store": "Lifone 花蓮遠百店", "name": "李宜諪", "profile": "V", "igniteNov": "V", "wk1": "V", "wk2": "V", "wk3": "V", "wk4": "V", "wk5": "V", "wk6": "V", "wk7": "", "wk8": "", "wk9": "", "wk10": "", "wk11": "", "scMonthlyOct": "V", "scOs27": "V", "scNewDealer": "V", "scMacQuiz": "V"},
+      {"id": 6, "dealer": "宏驜", "store": "Lifone 花蓮遠百店", "name": "劉懿萱", "profile": "V", "igniteNov": "V", "wk1": "V", "wk2": "V", "wk3": "V", "wk4": "V", "wk5": "V", "wk6": "V", "wk7": "", "wk8": "", "wk9": "", "wk10": "", "wk11": "", "scMonthlyOct": "V", "scOs27": "V", "scNewDealer": "V", "scMacQuiz": "V"},
+      {"id": 7, "dealer": "秉皇", "store": "a# shop 新北土城店", "name": "李智豪", "profile": "V", "igniteNov": "V", "wk1": "V", "wk2": "V", "wk3": "V", "wk4": "V", "wk5": "V", "wk6": "V", "wk7": "", "wk8": "", "wk9": "", "wk10": "", "wk11": "", "scMonthlyOct": "V", "scOs27": "V", "scNewDealer": "V", "scMacQuiz": "V"},
+      {"id": 8, "dealer": "秉皇", "store": "a# shop 新北土城店", "name": "林芳蕾", "profile": "V", "igniteNov": "V", "wk1": "V", "wk2": "V", "wk3": "V", "wk4": "V", "wk5": "V", "wk6": "V", "wk7": "", "wk8": "", "wk9": "", "wk10": "", "wk11": "", "scMonthlyOct": "V", "scOs27": "V", "scNewDealer": "V", "scMacQuiz": "V"},
+      {"id": 9, "dealer": "秉皇", "store": "a# shop 新北土城店", "name": "柯宛汝", "profile": "V", "igniteNov": "V", "wk1": "V", "wk2": "V", "wk3": "V", "wk4": "V", "wk5": "V", "wk6": "", "wk7": "", "wk8": "", "wk9": "", "wk10": "", "wk11": "", "scMonthlyOct": "V", "scOs27": "V", "scNewDealer": "V", "scMacQuiz": ""},
+      {"id": 10, "dealer": "秉皇", "store": "a# shop 新北土城店", "name": "翁湘庭", "profile": "V", "igniteNov": "V", "wk1": "V", "wk2": "V", "wk3": "V", "wk4": "V", "wk5": "V", "wk6": "V", "wk7": "", "wk8": "", "wk9": "", "wk10": "", "wk11": "", "scMonthlyOct": "V", "scOs27": "V", "scNewDealer": "V", "scMacQuiz": "V"},
+      {"id": 11, "dealer": "秉皇", "store": "a# shop 新北鶯歌店", "name": "邱珮瑋", "profile": "V", "igniteNov": "V", "wk1": "V", "wk2": "V", "wk3": "V", "wk4": "V", "wk5": "V", "wk6": "V", "wk7": "", "wk8": "", "wk9": "", "wk10": "", "wk11": "", "scMonthlyOct": "V", "scOs27": "V", "scNewDealer": "V", "scMacQuiz": "V"},
+      {"id": 12, "dealer": "秉皇", "store": "a# shop 新北鶯歌店", "name": "郭文昌", "profile": "V", "igniteNov": "V", "wk1": "V", "wk2": "V", "wk3": "V", "wk4": "V", "wk5": "V", "wk6": "V", "wk7": "", "wk8": "", "wk9": "", "wk10": "", "wk11": "", "scMonthlyOct": "V", "scOs27": "V", "scNewDealer": "V", "scMacQuiz": "V"},
+      {"id": 13, "dealer": "秉皇", "store": "a# shop 新北鶯歌店", "name": "楊旻軒", "profile": "V", "igniteNov": "V", "wk1": "V", "wk2": "V", "wk3": "V", "wk4": "V", "wk5": "V", "wk6": "V", "wk7": "", "wk8": "", "wk9": "", "wk10": "", "wk11": "", "scMonthlyOct": "V", "scOs27": "V", "scNewDealer": "V", "scMacQuiz": "V"},
+      {"id": 14, "dealer": "秉皇", "store": "a# shop 彰化市店", "name": "吳宜庭", "profile": "V", "igniteNov": "V", "wk1": "V", "wk2": "V", "wk3": "V", "wk4": "V", "wk5": "V", "wk6": "V", "wk7": "", "wk8": "", "wk9": "", "wk10": "", "wk11": "", "scMonthlyOct": "V", "scOs27": "V", "scNewDealer": "V", "scMacQuiz": "V"},
+      {"id": 15, "dealer": "秉皇", "store": "a# shop 彰化市店", "name": "宋榮輝", "profile": "V", "igniteNov": "V", "wk1": "V", "wk2": "V", "wk3": "V", "wk4": "V", "wk5": "V", "wk6": "V", "wk7": "", "wk8": "", "wk9": "", "wk10": "", "wk11": "", "scMonthlyOct": "V", "scOs27": "V", "scNewDealer": "V", "scMacQuiz": "V"},
+      {"id": 16, "dealer": "秉皇", "store": "a# shop 彰化市店", "name": "李昀芳", "profile": "V", "igniteNov": "V", "wk1": "V", "wk2": "V", "wk3": "V", "wk4": "V", "wk5": "V", "wk6": "V", "wk7": "", "wk8": "", "wk9": "", "wk10": "", "wk11": "", "scMonthlyOct": "V", "scOs27": "V", "scNewDealer": "V", "scMacQuiz": "V"},
+      {"id": 17, "dealer": "秉皇", "store": "a# shop 彰化市店", "name": "胡雅恩", "profile": "V", "igniteNov": "", "wk1": "V", "wk2": "V", "wk3": "V", "wk4": "V", "wk5": "V", "wk6": "", "wk7": "", "wk8": "", "wk9": "", "wk10": "", "wk11": "", "scMonthlyOct": "", "scOs27": "", "scNewDealer": "", "scMacQuiz": ""},
+      {"id": 18, "dealer": "秉皇", "store": "a# shop 彰化鹿港店", "name": "李政儒", "profile": "V", "igniteNov": "V", "wk1": "V", "wk2": "V", "wk3": "V", "wk4": "V", "wk5": "V", "wk6": "V", "wk7": "", "wk8": "", "wk9": "", "wk10": "", "wk11": "", "scMonthlyOct": "V", "scOs27": "V", "scNewDealer": "V", "scMacQuiz": "V"},
+      {"id": 19, "dealer": "秉皇", "store": "a# shop 彰化鹿港店", "name": "沈思妤", "profile": "V", "igniteNov": "V", "wk1": "V", "wk2": "V", "wk3": "V", "wk4": "V", "wk5": "V", "wk6": "V", "wk7": "", "wk8": "", "wk9": "", "wk10": "", "wk11": "", "scMonthlyOct": "V", "scOs27": "V", "scNewDealer": "V", "scMacQuiz": ""},
+      {"id": 20, "dealer": "秉皇", "store": "a# shop 彰化鹿港店", "name": "楊琹伊", "profile": "V", "igniteNov": "V", "wk1": "V", "wk2": "V", "wk3": "V", "wk4": "V", "wk5": "V", "wk6": "", "wk7": "", "wk8": "", "wk9": "", "wk10": "", "wk11": "", "scMonthlyOct": "V", "scOs27": "V", "scNewDealer": "V", "scMacQuiz": "V"},
+      {"id": 21, "dealer": "富鴻", "store": "手機王數位 雲林斗六店", "name": "楊孝祖", "profile": "V", "igniteNov": "V", "wk1": "V", "wk2": "V", "wk3": "V", "wk4": "V", "wk5": "V", "wk6": "", "wk7": "", "wk8": "", "wk9": "", "wk10": "", "wk11": "", "scMonthlyOct": "V", "scOs27": "V", "scNewDealer": "V", "scMacQuiz": "V"},
+      {"id": 22, "dealer": "富鴻", "store": "手機王數位 雲林虎尾店", "name": "曾芊育", "profile": "V", "igniteNov": "V", "wk1": "V", "wk2": "V", "wk3": "V", "wk4": "V", "wk5": "V", "wk6": "V", "wk7": "", "wk8": "", "wk9": "", "wk10": "", "wk11": "", "scMonthlyOct": "V", "scOs27": "V", "scNewDealer": "V", "scMacQuiz": "V"},
+      {"id": 23, "dealer": "富鴻", "store": "手機王數位 雲林虎尾店", "name": "黃雅紋", "profile": "V", "igniteNov": "V", "wk1": "V", "wk2": "V", "wk3": "V", "wk4": "V", "wk5": "V", "wk6": "", "wk7": "", "wk8": "", "wk9": "", "wk10": "", "wk11": "", "scMonthlyOct": "V", "scOs27": "V", "scNewDealer": "V", "scMacQuiz": "V"},
+      {"id": 24, "dealer": "富鴻", "store": "手機王數位 雲林虎尾店", "name": "蘇韋安", "profile": "V", "igniteNov": "V", "wk1": "V", "wk2": "V", "wk3": "V", "wk4": "V", "wk5": "V", "wk6": "V", "wk7": "", "wk8": "", "wk9": "", "wk10": "", "wk11": "", "scMonthlyOct": "", "scOs27": "V", "scNewDealer": "V", "scMacQuiz": "V"},
+      {"id": 25, "dealer": "優銳", "store": "iSpot 台東店", "name": "吳思慧", "profile": "V", "igniteNov": "V", "wk1": "V", "wk2": "V", "wk3": "V", "wk4": "V", "wk5": "V", "wk6": "", "wk7": "", "wk8": "", "wk9": "", "wk10": "", "wk11": "", "scMonthlyOct": "V", "scOs27": "V", "scNewDealer": "V", "scMacQuiz": ""},
+      {"id": 26, "dealer": "優銳", "store": "iSpot 台東店", "name": "郭峻瑋", "profile": "V", "igniteNov": "V", "wk1": "V", "wk2": "V", "wk3": "V", "wk4": "V", "wk5": "V", "wk6": "V", "wk7": "", "wk8": "", "wk9": "", "wk10": "", "wk11": "", "scMonthlyOct": "V", "scOs27": "V", "scNewDealer": "V", "scMacQuiz": "V"},
+      {"id": 27, "dealer": "優銳", "store": "iSpot 台東店", "name": "蔡舒蕎", "profile": "V", "igniteNov": "V", "wk1": "V", "wk2": "V", "wk3": "V", "wk4": "V", "wk5": "V", "wk6": "", "wk7": "", "wk8": "", "wk9": "", "wk10": "", "wk11": "", "scMonthlyOct": "V", "scOs27": "V", "scNewDealer": "", "scMacQuiz": "V"},
+      {"id": 28, "dealer": "鑫旺樹", "store": "飛訊部落 台南新營店", "name": "吳嫚慈", "profile": "V", "igniteNov": "V", "wk1": "V", "wk2": "V", "wk3": "V", "wk4": "V", "wk5": "V", "wk6": "V", "wk7": "", "wk8": "", "wk9": "", "wk10": "", "wk11": "", "scMonthlyOct": "V", "scOs27": "V", "scNewDealer": "V", "scMacQuiz": "V"},
+      {"id": 29, "dealer": "鑫旺樹", "store": "飛訊部落 台南新營店", "name": "蔡幸娟", "profile": "V", "igniteNov": "V", "wk1": "V", "wk2": "V", "wk3": "V", "wk4": "V", "wk5": "V", "wk6": "V", "wk7": "", "wk8": "", "wk9": "", "wk10": "", "wk11": "", "scMonthlyOct": "V", "scOs27": "V", "scNewDealer": "V", "scMacQuiz": "V"},
+      {"id": 30, "dealer": "鑫旺樹", "store": "飛訊部落 台南新營店", "name": "顏麗雯", "profile": "V", "igniteNov": "V", "wk1": "V", "wk2": "V", "wk3": "V", "wk4": "V", "wk5": "V", "wk6": "", "wk7": "", "wk8": "", "wk9": "", "wk10": "", "wk11": "", "scMonthlyOct": "V", "scOs27": "V", "scNewDealer": "V", "scMacQuiz": ""},
+      {"id": 31, "dealer": "鑫旺樹", "store": "飛訊部落 嘉義朴子店", "name": "吳欣儒", "profile": "V", "igniteNov": "V", "wk1": "V", "wk2": "V", "wk3": "V", "wk4": "V", "wk5": "V", "wk6": "", "wk7": "", "wk8": "", "wk9": "", "wk10": "", "wk11": "", "scMonthlyOct": "V", "scOs27": "V", "scNewDealer": "V", "scMacQuiz": "V"},
+      {"id": 32, "dealer": "鑫旺樹", "store": "飛訊部落 嘉義朴子店", "name": "林靜雯", "profile": "V", "igniteNov": "V", "wk1": "V", "wk2": "V", "wk3": "V", "wk4": "V", "wk5": "V", "wk6": "", "wk7": "", "wk8": "", "wk9": "", "wk10": "", "wk11": "", "scMonthlyOct": "V", "scOs27": "V", "scNewDealer": "V", "scMacQuiz": ""}
     ];
 
     // Initialize Store Filter Dropdown
@@ -1119,9 +1121,9 @@
       // Auto-expand completed columns if user selects a filter for completed columns
       const autoExpandColFilters = [
         'all-open-done', 'current-all-done',
-        'wk1-done', 'wk2-done', 'wk3-done', 'wk4-done',
+        'wk1-done', 'wk2-done', 'wk3-done', 'wk4-done', 'wk5-done',
         'profile-done', 'profile-pending',
-        'wk1-pending', 'wk2-pending', 'wk3-pending', 'wk4-pending'
+        'wk1-pending', 'wk2-pending', 'wk3-pending', 'wk4-pending', 'wk5-pending'
       ];
       if (autoExpandColFilters.includes(selectedStatus)) {
         if (isColsCollapsed) {
@@ -1133,7 +1135,7 @@
       // Auto-expand personnel if user selects a filter that targets completed personnel
       const autoExpandPersonnelFilters = [
         'all-open-done', 'current-all-done',
-        'wk1-done', 'wk2-done', 'wk3-done', 'wk4-done', 'wk5-done',
+        'wk1-done', 'wk2-done', 'wk3-done', 'wk4-done', 'wk5-done', 'wk6-done',
         'profile-done', 'ignite-done', 'sc-monthly-done', 'sc-os27-done',
         'sc-newdealer-done', 'sc-macquiz-done'
       ];
@@ -1173,9 +1175,13 @@
         const isScMacQuizDone = item.scMacQuiz && item.scMacQuiz.trim().toUpperCase() === 'V';
 
         if (selectedStatus === 'all-open-done') {
-          matchStatus = isProfileDone && isIgniteDone && [1,2,3,4].every(k => isWkDone(k)) && isScMonthlyDone && isScOs27Done && isScNewDealerDone && isScMacQuizDone;
+          matchStatus = isProfileDone && isIgniteDone && [1,2,3,4,5,6].every(k => isWkDone(k)) && isScMonthlyDone && isScOs27Done && isScNewDealerDone && isScMacQuizDone;
         } else if (selectedStatus === 'current-all-done') {
-          matchStatus = isProfileDone && isIgniteDone && isWkDone(1) && isWkDone(2) && isWkDone(3) && isWkDone(4);
+          matchStatus = isProfileDone && isIgniteDone && isWkDone(1) && isWkDone(2) && isWkDone(3) && isWkDone(4) && isWkDone(5) && isWkDone(6);
+        } else if (selectedStatus === 'wk6-done') {
+          matchStatus = isWkDone(6);
+        } else if (selectedStatus === 'wk6-pending') {
+          matchStatus = !isWkDone(6);
         } else if (selectedStatus === 'wk5-done') {
           matchStatus = isWkDone(5);
         } else if (selectedStatus === 'wk5-pending') {
@@ -1305,7 +1311,7 @@
           <td class="col-completed">${getLightHtml(item.wk2)}</td>
           <td class="col-completed">${getLightHtml(item.wk3)}</td>
           <td class="col-completed">${getLightHtml(item.wk4)}</td>
-          <td>${getLightHtml(item.wk5)}</td>
+          <td class="col-completed">${getLightHtml(item.wk5)}</td>
           <td>${getLightHtml(item.wk6)}</td>
           <td>${getLightHtml(item.wk7)}</td>
           <td>${getLightHtml(item.wk8)}</td>
